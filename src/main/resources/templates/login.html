@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MinID</title>
+</head>
+<body id="body" class="null">
+    <main id="minid-main">
+        <section class="Box">
+            <div class="Box_header">
+                <h1 class="Box_header-title with-logo logo-eid-gray">
+                    Logg inn med MinID
+                </h1>
+                <nav id="js-mi-menu" class="mi-Menu">
+                    <a class="mi-Menu_Trigger" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="/images/svg/minid-m-kant.svg" alt="MinID logo" width="62px" height="28px">
+                        <span class="visuallyHidden">Meny</span>
+                        <span class="fa fa-bars fa-lg" aria-hidden="true"></span>
+                    </a>
+                </nav>
+            </div>
+<!--            <p th:if="${loginError}" class="error">Feil brukernavn eller passord</p>-->
+            <div id="minidwrapper" class="Box_main">
+                <div class="fm-Progress_Container">
+                    <div class="fm-Progress_Dot active"></div>
+                    <div class="fm-Progress_Dot"></div>
+                </div>
+                <form class="login" th:action="@{/login.html}" method="post">
+                    <fieldset>
+                        <div class="fm-Fields">
+                            <div class="fm_Field">
+                                <label for="pid">Fødselsnummer</label>
+                                <input type="text" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
+                                       autofocus="autofocus" maxlength="11"/>
+                            </div>
+                            <div class="fm_Field">
+                                <label for="password">Passord</label>
+                                <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
+                            </div>
+                            <div class="fm-form_link with-Link">
+                                <a href="">
+                                    <span>Glemt passord</span>
+                                </a>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="fm-Controls with-Normal with-Action">
+                        <button id="next" class="btn btn-Action" name="next" type="submit">
+                            <span>Neste</span>
+                        </button>
+                        <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+                            <span>Avbryt</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

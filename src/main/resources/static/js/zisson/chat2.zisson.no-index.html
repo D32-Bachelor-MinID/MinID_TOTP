@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chat</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <!-- begin digdir: csp & css -->
+    <meta property="csp-nonce" content="{{cspNonce}}">
+    <link rel="stylesheet" nonce="{{cspNonce}}" type="text/css" href="widget.css?v=1">
+    <!-- end digdir: csp & css -->
+
+</head>
+
+<body class="bottom-right closed">
+
+<audio id="bing" preload="none" src="assets/sfx/bing.mp3"></audio>
+<audio id="bong" preload="none" src="assets/sfx/bong.mp3"></audio>
+
+    <div id="chatToggle" class="chat-toggle toggle-color toggle-background-color reverse">
+        <span id="chatTitle" class="chat-title">chat title</span>
+        <div id="chatLogo" class="chat-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"></path>
+            </svg>
+        </div>
+        <div class="arrow-container">
+            <div class="arrow toggle-background-color"></div>
+        </div>
+    </div>
+
+
+<div id="menu" class="menu" hidden>
+    <div id="volumeToggleMenuItem" class="menu-item">
+        <span id="volumeToggleIcon" class="menu-icon"></span>
+        <span>Toggle sound</span>
+    </div>
+    <div id="popWindowMenuItem" class="menu-item" hidden>
+        <span id="popWindowIcon" class="menu-icon"></span>
+        <span>Open in a new window</span>
+    </div>
+</div>
+
+<div id="chatContainer" class="chat-container">
+
+    <header id="header" class="header-footer-background header-footer-text">
+        <button id="menuToggleButton" title="Open menu" hidden></button>
+        <h1 id="chatStatus" class="chat-status">chat status</h1>
+        <nav>
+            <button id="toggleEmailButton" title="Send conversation to email" hidden></button>
+            <button id="minimizeButton" title="Minimize chat"></button>
+            <button id="refreshButton" title="Refresh" hidden></button>
+            <button id="closeButton" title="End chat" hidden></button>
+        </nav>
+    </header>
+
+    <main id="panelContainer">
+
+        <div id="chatClosed" panel="closed" class="chat-closed">
+            <h1 id="closedTitle" class="closed-title">chat is closed</h1>
+            <div id="closedBody" class="closed-body">chat is currently closed</div>
+        </div>
+
+        <div id="noAgentsAvailable" panel="noAgentsAvailable">
+            <h1 id="noAgentsTitle" class="no-agents-title">chat is currently closed</h1>
+            <div id="noAgentsBody" class="no-agents-body">there are no agents available.</div>
+        </div>
+
+        <div id="chatRegistration" panel="registration" class="chat-registration">
+            <form id="registrationForm" class="registration-form">
+                <div id="registrationInfo" class="registration-text" hidden></div>
+                <div id="registrationInputs" class="registration-inputs"></div>
+                <div id="registrationFooter" class="registration-text" hidden></div>
+                <button id="registerButton" type="submit" class="registration-button">start</button>
+            </form>
+        </div>
+
+
+        <div id="chatMain" panel="conversation" class="chat-main">
+            <div class="top-info">
+                <span id="topInfo"></span>
+            </div>
+            <div id="messagesContainer" class="messages-container">
+                <div id="messages" class="messages"></div>
+                <div id="phantomMessage" class="message agent phantom" hidden>
+                    <span id="phantomMessageContent" class="content ">...</span>
+                </div>
+            </div>
+            <div class="chat-input">
+                <div id="inputBox" class="input-box">
+                    <span id="addAttachment" title="Supported file formats: jpg, png, gif, jpeg, jfif, docx', pdf, xls, xlsx"></span>
+                    <input id="inputAttachment" type="file" multiple hidden/>
+                    <textarea id="textInput" class="text-input" placeholder="Press [enter] to send message" disabled></textarea>
+                    <!-- <pre id="textContent" class="text-content text-pre"></pre> -->
+                    <button id="sendButton" class="send-button" disabled></button>
+                </div>
+                <div id="previewWrapper">
+                </div>
+            </div>
+        </div>
+
+        <div id="sendEmailPanel" hidden>
+            <div id="sendEmailPanelOverlayBox" class="overlayBox">
+                <div class="overlayBody">
+                    <h3 id="conversationEnded" class="rise"></h3>
+                    <p id="requestReportEmail"></p>
+                    <form id="emailReportForm">
+                        <input id="sendEmailInput" type="email" placeholder="@" required>
+                        <button id="sendEmailButton" type="submit" disabled>Send</button>
+                    </form>
+                    <p id="emailSentText" hidden></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="termsPanel" class="terms-panel" hidden>
+            <div class="terms-container">
+                <div id="termsParagraphText"></div>
+                <a id="termsLink" href="" target="blank"></a>
+                <button id="acceptTermsButton"></button>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="bottom-info">
+        <span id="bottomInfo"></span>
+    </div>
+
+    <footer id="footer" class="header-footer-background header-footer-text">
+        <span class="credits" id="credits">Powered by Zisson</span>
+    </footer>
+
+</div>
+
+
+<!-- begin digdir: lazy loading -->
+<script nonce="{{cspNonce}}">
+
+    // set title according to locale
+    document.addEventListener('DOMContentLoaded', () => {
+        let el = document.getElementById("chatTitle");
+
+        switch (sessionStorage.getItem('locale')) {
+            case "en":
+                el.textContent = 'Chat with us';
+                break;
+            case "nb":
+                el.textContent = 'Chat med oss';
+                break;
+            default:
+                el.textContent = 'Chat med oss';
+        }
+    });
+
+    // load widget javascript after click
+    document.getElementById("chatToggle").addEventListener("click", () => {
+
+        // widget.js
+        sessionStorage.setItem('zViewMode', '1'); // start chat expanded
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '/widget.js?v=1';
+        script.nonce = document.head.querySelector("[property~=csp-nonce][content]").content;
+        document.body.appendChild(script);
+
+    },
+    {once: true }); // remove event listener after 1 event
+</script>
+<!-- end digdir: lazy loading -->
+
+</body>
