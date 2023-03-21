@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>MinID</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
 </head>
-<body id="body" class="null">
-    <main id="minid-main">
+<body>
+    <main>
         <section class="Box">
             <div class="Box_header">
                 <h1 class="Box_header-title with-logo logo-eid-gray">
                     Logg inn med MinID
                 </h1>
-                <nav id="js-mi-menu" class="mi-Menu">
-                    <a class="mi-Menu_Trigger" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img src="/images/svg/minid-m-kant.svg" alt="MinID logo" width="62px" height="28px">
+                <nav class="mi-Menu">
+                    <a class="mi-Menu_Trigger" role="button">
+                        <img src="../static/images/svg/minid-m-kant.svg" alt="MinID logo" width="62px" height="28px">
                         <span class="visuallyHidden">Meny</span>
-                        <span class="fa fa-bars fa-lg" aria-hidden="true"></span>
+                        <span class="fa fa-bars fa-lg"></span>
                     </a>
                 </nav>
             </div>
 <!--            <p th:if="${loginError}" class="error">Feil brukernavn eller passord</p>-->
-            <div id="minidwrapper" class="Box_main">
+            <div class="Box_main">
                 <div class="fm-Progress_Container">
                     <div class="fm-Progress_Dot active"></div>
                     <div class="fm-Progress_Dot"></div>
                 </div>
-                <form class="login" th:action="@{/login.html}" method="post">
+                <form th:action="@{/login.html}" method="post">
                     <fieldset>
                         <div class="fm-Fields">
                             <div class="fm_Field">
