@@ -1,0 +1,138 @@
+ Endringer som må til for å få:
+ * alle filene hentes lokalt
+ * csp med nonce
+ * lazy loading
+
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+|  Filer uten endringer:
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+curl -o assets/version.json https://chat2.zisson.no/assets/version.json
+curl -o assets/sfx/bong.mp3 https://chat2.zisson.no/assets/sfx/bong.mp3
+curl -o assets/sfx/bong.mp3 https://chat2.zisson.no/assets/sfx/bong.mp3
+curl -o assets/favicon-32x32.png https://chat2.zisson.no/assets/favicon-32x32.png
+curl -o assets/favicon-16x16.png https://chat2.zisson.no/assets/favicon-16x16.png
+curl -o widget.css https://chat2.zisson.no/widget.eda2b727b430175c9432.css?eda2b727b430175c9432
+
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+|  Filer med endringer:
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*** curl -o chat2.zisson.no-index.html https://chat2.zisson.no/index.html
+
+* Legg til tags i <head>:
+    <meta property="csp-nonce" content="{{cspNonce}}">
+    <link rel="stylesheet" nonce="{{cspNonce}}" type="text/css" href="widget.css?v=1">
+
+* Legg til klasse i body: <body class="bottom-right closed">
+
+* Modifiser <audio>-taggene: sett preload="none"
+
+* Modifiser <chatToggle> - legg til klasse 'reverse', legg inn svg for chat-ikon:
+    <div id="chatToggle" class="chat-toggle toggle-color toggle-background-color reverse">
+        <span id="chatTitle" class="chat-title">chat title</span>
+        <div id="chatLogo" class="chat-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"></path>
+            </svg>
+        </div>
+        <div class="arrow-container">
+            <div class="arrow toggle-background-color"></div>
+        </div>
+    </div>
+
+* Fjern innlasting av widget.js, og legg til skript for lazy-loading av widget.js:
+<script nonce="{{cspNonce}}">
+
+    // set title according to locale
+    document.addEventListener('DOMContentLoaded', () => {
+        let el = document.getElementById("chatTitle");
+        switch (sessionStorage.getItem('locale')) {
+            case "en":
+                el.textContent = 'Chat with us';
+                break;
+            case "nb":
+                el.textContent = 'Chat med oss';
+                break;
+            default:
+                el.textContent = 'Chat med oss';
+        }
+    });
+
+    // load widget javascript after click
+    document.getElementById("chatToggle").addEventListener("click", () => {
+        sessionStorage.setItem('zViewMode', '1'); // start chat expanded
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'js/zisson/widget.js?v=1';
+        script.nonce = document.head.querySelector("[property~=csp-nonce][content]").content;
+        document.body.appendChild(script);
+    },
+    {once: true }); // remove event listener after 1 event
+</script>
+
+*** curl -o widget.js https://chat2.zisson.no/widget.js?eda2b727b430175c9432
+* Bytt ut bootstrapperUrl på rad 582 til: "js/zisson/chat2.zisson.no-index.html"
+* Legg til etter rad 3486: let cspNonce = document.head.querySelector("[property~=csp-nonce][content]").content;
+* Legg til i rad 3489: t.setAttribute('nonce', cspNonce),
+* Bytt ut på rad 4618: "/assets/version.json?" mot "assets/version.json?"
+
+*** curl -o bootstrapper.js https://chat2.zisson.no/bootstrapper.js
+* Legg til på rad 227:  this.widgetContainer.className="closed",
+* Legg til på rad 227: this.iframe.title="Zisson Chat Client",
+* Legg til etter rad 369:
+    let cspNonce = document.head.querySelector("[property~=csp-nonce][content]").content;
+    this.widgetStyle.setAttribute("nonce", cspNonce);
+* Legg til etter rad 372:  let cspNonce = document.head.querySelector("[property~=csp-nonce][content]").content;
+* Legg til på rad 373: this.widgetStyle.setAttribute("nonce", cspNonce),
+* Bytt ut bootstrapperUrl på rad 496 til: "js/zisson/chat2.zisson.no-index.html"
+
+
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+|  Oppdater minid-auth footer.jsp
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+<meta property="csp-nonce" content="{{cspNonce}}">
+
+<script nonce="{{cspNonce}}" type="text/javascript">
+    let locale = "";
+    let dataJwt = "";
+
+    switch(new URLSearchParams(window.location.search).get('locale')) {
+        case "nn":
+            locale = "nn";
+            dataJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoiODQxIiwiY3VzdG9tZXJHdWlkIjoiNjEwM2Y5ZDItOWI2YS00ZDMwLWJlYTUtNzJjZGVjYTMyZWE3IiwiZW50cnlQb2ludEd1aWQiOiJmZTJmYjI4ZS1jOTIwLTQ0NjctODRhYS1mZWQ5MWIyZjFlZmYiLCJuYmYiOjE2NjE0MTIwODYsImV4cCI6MTgxOTE3ODQ4NiwiaWF0IjoxNjYxNDEyMDg2LCJpc3MiOiJ6aXNzb24iLCJhdWQiOiJ3YXZlQ2hhdCJ9._4XBDilsU5wpFPknAnwpK8cgE10dAeuwBXbZ8sTOXVs';
+            break;
+
+        case "en":
+            locale = "en";
+            dataJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoiODQxIiwiY3VzdG9tZXJHdWlkIjoiNjEwM2Y5ZDItOWI2YS00ZDMwLWJlYTUtNzJjZGVjYTMyZWE3IiwiZW50cnlQb2ludEd1aWQiOiIzOWZhOGRkMS01ZWIyLTRlMjQtYmRlOC1kZTA2YWQ5ZTczMjUiLCJuYmYiOjE2NjEyMzM2MjQsImV4cCI6MTgxOTAwMDAyNCwiaWF0IjoxNjYxMjMzNjI0LCJpc3MiOiJ6aXNzb24iLCJhdWQiOiJ3YXZlQ2hhdCJ9.ob6oH9iuyTcAJ2D9UNYENlLPKW2kDnvnqLklYTSCzMU';
+            break;
+
+        default:
+            locale = "nb";
+            dataJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcklkIjoiODQxIiwiY3VzdG9tZXJHdWlkIjoiNjEwM2Y5ZDItOWI2YS00ZDMwLWJlYTUtNzJjZGVjYTMyZWE3IiwiZW50cnlQb2ludEd1aWQiOiI1MDY2ZmFjOS0wODFhLTQ1ZTYtYjZlNi1lY2JmMWEyMTk2YmYiLCJuYmYiOjE2NjE0MTIxODksImV4cCI6MTgxOTE3ODU4OSwiaWF0IjoxNjYxNDEyMTg5LCJpc3MiOiJ6aXNzb24iLCJhdWQiOiJ3YXZlQ2hhdCJ9.NdpdEabjD_H_NPwj-GqUScFpX_KQ9I4wxB0_N2fl4lE';
+    }
+
+    sessionStorage.setItem("locale", locale);
+
+    let script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('data-jwt', dataJwt);
+    script.setAttribute('src', 'js/zisson/bootstrapper.js');
+    script.setAttribute('nonce', document.head.querySelector("[property~=csp-nonce][content]").content);
+    document.body.appendChild(script);
+</script>
+
+
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+| Følge opp:
+ -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+* Feilmelding ved hver inntasting: "widget.js?v=1:3849 Uncaught TypeError: Cannot set properties of null (setting 'textContent') at HTMLTextAreaElement.<anonymous> (widget.js?v=1:3849:48)"
+- Fikses i neste versjon fra zisson.
+
+* Debugmelding i loggen ved innlasting av chatklient: "widgetViewMode 1 Open"
+- Fikses i neste versjon fra zisson.
+
+* Tekst i trepunkts-menyn er ikke på valgt språk
+- Uklart hvis det finnes en løsning.
+
+* "Open in new window"-knapp: Åpner ikke ekspandert - må klikke på "Chat med oss"
+- Zisson ser på saken.
