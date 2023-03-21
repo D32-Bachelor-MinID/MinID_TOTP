@@ -20,12 +20,15 @@ public class TestUserRepository {
     private UserRepository userRepository;
     @Before
     public void setUp() {
-        User user1 = new User(randomUUID().toString(), "091231209381", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", "password", 0, 0, 0, 0, 0, 0);
+        if(userRepository.findByPid("091231229381") != null) {
+            userRepository.delete(userRepository.findByPid("091231229381"));
+        }
+        User user1 = new User(randomUUID().toString(), "091231229381", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", "password", 0, 0, 0, 0, 0, 0);
         userRepository.save(user1);
     }
     @Test
     public void testFetchData(){
-        User userA = userRepository.findByUuid("098");
+        User userA = userRepository.findByPid("091231229381");
         assertNotNull(userA);
     }
 
