@@ -14,17 +14,9 @@ public class User {
     private String uuid;
     private String pid;
     private String source;
-    @GeneratedValue
-    private String kodeverk_source;
     private String user_state;
-    @GeneratedValue
-    private String kodeverk_user_state;
     private String security_level;
-    @GeneratedValue
-    private String kodeverk_security_level;
     private String mfa_method;
-    @GeneratedValue
-    private String kodeverk_mfa_method;
     private String password;
     private Integer password_error_counter;
     private Integer mfa_error_counter;
@@ -76,13 +68,6 @@ public class User {
         this.source = source;
     }
 
-    public String getKodeverk_source() {
-        return kodeverk_source;
-    }
-
-    public void setKodeverk_source(String kodeverk_source) {
-        this.kodeverk_source = kodeverk_source;
-    }
 
     public String getUser_state() {
         return user_state;
@@ -92,13 +77,6 @@ public class User {
         this.user_state = user_state;
     }
 
-    public String getKodeverk_user_state() {
-        return kodeverk_user_state;
-    }
-
-    public void setKodeverk_user_state(String kodeverk_user_state) {
-        this.kodeverk_user_state = kodeverk_user_state;
-    }
 
     public String getSecurity_level() {
         return security_level;
@@ -108,13 +86,6 @@ public class User {
         this.security_level = security_level;
     }
 
-    public String getKodeverk_security_level() {
-        return kodeverk_security_level;
-    }
-
-    public void setKodeverk_security_level(String kodeverk_security_level) {
-        this.kodeverk_security_level = kodeverk_security_level;
-    }
 
     public String getMfa_method() {
         return mfa_method;
@@ -122,14 +93,6 @@ public class User {
 
     public void setMfa_method(String mfa_method) {
         this.mfa_method = mfa_method;
-    }
-
-    public String getKodeverk_mfa_method() {
-        return kodeverk_mfa_method;
-    }
-
-    public void setKodeverk_mfa_method(String kodeverk_mfa_method) {
-        this.kodeverk_mfa_method = kodeverk_mfa_method;
     }
 
     public String getPassword() {
@@ -194,13 +157,9 @@ public class User {
                 "uuid='" + uuid + '\'' +
                 ", pid='" + pid + '\'' +
                 ", source='" + source + '\'' +
-                ", kodeverk_source='" + kodeverk_source + '\'' +
                 ", user_state='" + user_state + '\'' +
-                ", kodeverk_user_state='" + kodeverk_user_state + '\'' +
                 ", security_level='" + security_level + '\'' +
-                ", kodeverk_security_level='" + kodeverk_security_level + '\'' +
                 ", mfa_method='" + mfa_method + '\'' +
-                ", kodeverk_mfa_method='" + kodeverk_mfa_method + '\'' +
                 ", password='" + password + '\'' +
                 ", password_error_counter=" + password_error_counter +
                 ", mfa_error_counter=" + mfa_error_counter +
