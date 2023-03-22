@@ -14,7 +14,7 @@ import java.util.Objects;
 public class LoginController {
     @Autowired
     private UserRepository userRepository;
-    @GetMapping("/login")
+    @GetMapping("/")
     public String login() {
         System.out.println("Logincontroller");
         return "login";
