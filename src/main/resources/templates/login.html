@@ -1,61 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>MinID</title>
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Autentisering med MinID">
+
+    <link rel="preload" nonce="" th:href="@{/fonts/open-sans/open-sans.min.css}" as="style">
+    <link rel="preload" nonce="" th:href="@{fonts/font-awesome/css/font-awesome.min.css}" as="style">
+    <link rel="preload" nonce="" th:href="@{/css/style.css}" as="style">
+    <link rel="preload" nonce="" th:href="@{/js/header.js}" as="script">
+    <link rel="preload" nonce="" th:href="@{/js/minid-menu.js}" as="script">
+    <link rel="preload" nonce="" th:href="@{/js/minid-menu-toggle.js}" as="script">
+    <link rel="preload" nonce="" th:href="@{/js/jquery-3.6.1.min.js}" as="script">
+    <link rel="preload" nonce="" th:href="@{/js/jquery-ui-1.13.2/jquery-ui.min.js}" as="script">
+
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/favicon-16x16.png}">
+    <link nonce="" rel="manifest" th:href="@{/site.webmanifest}">
+    <link rel="mask-icon" th:href="@{/safari-pinned-tab.svg}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <script nonce="" type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+    <script nonce="" type="text/javascript" src="/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+    <script nonce="" type="text/javascript" src="/js/header.js"></script>
+    <script nonce="" type="text/javascript" src="/js/minid-menu.js"></script>
+    <script nonce="" type="text/javascript" src="/js/minid-menu-toggle.js"></script>
+
+    <link th:href="@{/fonts/open-sans/open-sans.min.css}" type="text/css" nonce="" rel="stylesheet" />
+    <link th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" type="text/css" nonce="" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" type="text/css" nonce="" rel="stylesheet" />
 </head>
 <body>
-    <main>
-        <section class="Box">
-            <div class="Box_header">
-                <h1 class="Box_header-title with-logo logo-eid-gray">
-                    Logg inn med MinID
-                </h1>
-                <nav class="mi-Menu">
-                    <a class="mi-Menu_Trigger" role="button">
-                        <img src="../static/images/svg/minid-m-kant.svg" alt="MinID logo" width="62px" height="28px">
-                        <span class="visuallyHidden">Meny</span>
-                        <span class="fa fa-bars fa-lg"></span>
-                    </a>
-                </nav>
+<main>
+    <section class="Box">
+        <div class="Box_Section-ServiceProvider">
+            <div class="Box_Section_Title">N/A</div>
+        </div>
+        <div class="Box_header">
+            <h1 class="Box_header-title with-logo logo-eid-gray">
+                Logg inn med MinID
+            </h1>
+            <nav id="js-mi-menu" class="mi-Menu">
+                <a class="mi-Menu_Trigger" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                    <img th:src="@{/images/svg/minid-m-kant.svg}" alt="MinID logo" width="62px" height="28px">
+                    <span class="visuallyHidden">Meny</span>
+                    <span class="fa fa-bars fa-lg"></span>
+                </a>
+                <ul>
+                    <li>
+                        <a class="h-Main_Menu_Element" href="#"><!--TODO: legge til riktig href-->
+                            <span>MinID-innstillinger</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="h-Main_Menu_Element" href="#"><!--TODO: legge til riktig href-->
+                            <span>Bestill ny MinID</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="h-Main_Menu_Element" href="#"><!--TODO: legge til riktig href-->
+                            <span>Glemt passord</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--            <p th:if="${loginError}" class="error">Feil brukernavn eller passord</p>-->
+        <div class="Box_main" id="minidwrapper">
+            <div class="fm-Progress_Container">
+                <div class="fm-Progress_Dot active"></div>
+                <div class="fm-Progress_Dot"></div>
             </div>
-<!--            <p th:if="${loginError}" class="error">Feil brukernavn eller passord</p>-->
-            <div class="Box_main">
-                <div class="fm-Progress_Container">
-                    <div class="fm-Progress_Dot active"></div>
-                    <div class="fm-Progress_Dot"></div>
-                </div>
-                <form th:action="@{/login}" method="post">
-                    <fieldset>
-                        <div class="fm-Fields">
-                            <div class="fm_Field">
-                                <label for="pid">Fødselsnummer</label>
-                                <input type="text" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
-                                       autofocus="autofocus" maxlength="11"/>
-                            </div>
-                            <div class="fm_Field">
-                                <label for="password">Passord</label>
-                                <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
-                            </div>
-                            <div class="fm-form_link with-Link">
-                                <a href="">
-                                    <span>Glemt passord</span>
-                                </a>
-                            </div>
+            <form id="userCredentials" class="login" th:action="@{/login}" method="post">
+                <fieldset>
+                    <div class="fm-Fields">
+                        <div class="fm-Field">
+                            <label for="pid">Fødselsnummer</label>
+                            <input type="tel" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
+                                   autofocus="autofocus" maxlength="11"/>
                         </div>
-                    </fieldset>
-                    <div class="fm-Controls with-Normal with-Action">
-                        <button id="next" class="btn btn-Action" name="next" type="submit">
-                            <span>Neste</span>
-                        </button>
-                        <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
-                            <span>Avbryt</span>
-                        </button>
+                        <div class="fm-Field">
+                            <label for="password">Passord</label>
+                            <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
+                        </div>
+                        <div class="fm-form_link with-Link">
+                            <a href="">
+                                <span>Glemt passord</span>
+                            </a>
+                        </div>
                     </div>
-                </form>
-            </div>
-        </section>
-    </main>
+                </fieldset>
+                <div class="fm-Controls with-Normal with-Action">
+                    <button id="next" class="btn btn-Action" name="next" type="submit">
+                        <span>Neste</span>
+                    </button>
+                    <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+                        <span>Avbryt</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
 </body>
 </html>

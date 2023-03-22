@@ -31,7 +31,7 @@ public class TestUserRepository {
     }
     @Test
     public void testFetchData(){
-        User userA = userRepository.findByPid("091231229381");
+        User userA = userRepository.findByPid("09123122938");
         assertNotNull(userA);
     }
 
