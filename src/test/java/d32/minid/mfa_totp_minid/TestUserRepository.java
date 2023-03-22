@@ -1,5 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import d32.minid.mfa_totp_minid.repository.UserRepository;
 import d32.minid.mfa_totp_minid.user.User;
 import org.junit.Before;
@@ -20,10 +21,12 @@ public class TestUserRepository {
     private UserRepository userRepository;
     @Before
     public void setUp() {
-        if(userRepository.findByPid("091231229381") != null) {
-            userRepository.delete(userRepository.findByPid("091231229381"));
+        if(userRepository.findByPid("09123122938") != null) {
+            userRepository.delete(userRepository.findByPid("09123122938"));
         }
-        User user1 = new User(randomUUID().toString(), "091231229381", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", "password", 0, 0, 0, 0, 0, 0);
+        String password = "password";
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        User user1 = new User(randomUUID().toString(), "09123122938", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", bcryptHashString, 0, 0, 0, 0, 0, 0);
         userRepository.save(user1);
     }
     @Test
