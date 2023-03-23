@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,6 +33,13 @@ public class TestUserRepository {
     public void testFetchData(){
         User userA = userRepository.findByPid("09123122938");
         assertNotNull(userA);
+    }
+    
+    @Test
+    public void verifyPasswordHashTest() {
+        User usera = userRepository.findByPid("09123122938");
+        String password = "password";
+        assertTrue( BCrypt.verifyer().verify(password.toCharArray(), usera.getPassword()).verified);
     }
 
 }
