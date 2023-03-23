@@ -1,10 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Great success</title>
+    <title>Dine kontaktopplysninger</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/open-sans/open-sans.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" media="all">
+    <meta name="description" content="Dine kontaktopplysninger">
+    <meta name="keywords" content="ID-porten, DIFI">
+    <meta name="language" content="no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-<p>Shit works yo</p>
+<body id="body" class="null">
+<header class="h-Main">
+    <div class="h-Main_Content">
+        <div class="h-main_Content_Placeholder">
+            <span class="h-Main_Username userinfo-dsf-name"></span>
+        </div>
+        <a class="h-Menu_Trigger-mobile" href="" role="button">
+            <span class="fa fa-bars"></span>
+        </a>
+        <div id="js-menues" class="h-Menu_Container">
+            <span class="h-Main_Username userinfo-dsf-name"></span>
+            <a id="LOGOUT_MINPROFIL" class="h_Main_Content_Link" href=""><!--TODO:riktig href link-->
+                <span>Logg ut</span>
+            </a>
+            <nav class="h-Menu">
+                <a class="h-Menu_Trigger" href="">
+                    <span>Språk</span>
+                    <span class="fa fa-angle-down fa-lg"></span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="?locale=nb" class="h-Main_Menu_Element">Bokmål</a>
+                    </li>
+                    <li>
+                        <a href="?locale=nn" class="h-Main_Menu_Element">Nynorsk</a>
+                    </li>
+                    <li>
+                        <a href="?locale=en" class="h-Main_Menu_Element">Engelsk</a>
+                    </li>
+                    <li>
+                        <a href="?locale=se" class="h-Main_Menu_Element js-last">Sàmegiella</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="Box">
+        <div class="Box_header">
+            <h1 class="Box_header-title with-logo logo-eid-gray">Endre MinID-innstillinger</h1>
+<!--            <div class="Box_header-provider"><img th:src="/images/eid-logo.gif" alt="Logo"></div>-->
+        </div>
+        <div class="Box_main">
+            <div class="fm-Fields">
+                <div class="fm-Field">
+                    <span class="label">Logg inn med:</span>
+                    <div class="with-icon">
+                        <span class="text">
+                            <label>MinID app</label>
+                        </span>
+<!--                        <a th:href="@{/login-method/changeLogin}">TODO-->
+                        <a href="">
+                            <span class="visuallyHidden">Endre innloggingsmetode</span>
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="fm-Field">
+                    <span class="label">Mobilnummer:</span>
+                    <div class="with-icon">
+<!--                        <span class="text disabled" th:text="${user.tlf}"></span>TODO-->
+                        <span class="text disabled">12312311</span>
+                    </div>
+                </div>
+                <div class="fm-Field">
+                    <span class="label">Nytt passord:</span>
+                    <div class="with-icon">
+                        <span class="text">**********</span>
+<!--                        <a th:href="@{/newpassword}">TODO-->
+                        <a href="">
+                            <span class="visuallyHidden">Endre passord</span>
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Box_footer">
+            <div class="Box_footer-links">
+            </div>
+        </div>
+    </section>
+</main>
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js"></script>
+<script type="text/javascript" src="/js/minid-menu-toggle.js"></script>
 </body>
 </html>
