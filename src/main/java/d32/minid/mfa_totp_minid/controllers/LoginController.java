@@ -7,6 +7,9 @@ import d32.minid.mfa_totp_minid.security.SessionHandler;
 import d32.minid.mfa_totp_minid.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +25,9 @@ public class LoginController {
     private DatabindContext session;
 
     @GetMapping("/")
-    public String login(HttpSession session) {
+    public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
+        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+        System.out.println("access token: " + accessToken.getTokenValue());
         SessionHandler sessionHandler = new SessionHandler(session);
         if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
             System.out.println("Logincontroller");
@@ -45,8 +50,10 @@ public class LoginController {
     }
     //TODO flytt til egen controller
     @GetMapping("/settings")
-    public String settings(HttpSession session) {
+    public String settings(HttpSession session, @RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient) {
+        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
         SessionHandler sessionHandler = new SessionHandler(session);
+        System.out.println("access token: " + accessToken.getTokenValue());
         if (!sessionHandler.hasAttribute(session)) {
             session.invalidate();
             return "redirect:/";
