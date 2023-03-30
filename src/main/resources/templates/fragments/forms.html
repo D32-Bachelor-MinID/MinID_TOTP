@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form th:fragment="userCredentials">
+    <fieldset>
+      <div class="fm-Fields">
+        <div class="fm-Field">
+          <label for="pid">Fødselsnummer</label>
+          <input type="tel" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
+                 autofocus="autofocus" maxlength="11"/>
+        </div>
+        <div class="fm-Field">
+          <label for="password">Passord</label>
+          <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
+        </div>
+        <div class="fm-form_link with-Link">
+          <a href="">
+            <span>Glemt passord</span>
+          </a>
+        </div>
+      </div>
+    </fieldset>
+    <div class="fm-Controls with-Normal with-Action">
+      <button id="next" class="btn btn-Action" name="next" type="submit">
+        <span>Neste</span>
+      </button>
+      <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+        <span>Avbryt</span>
+      </button>
+    </div>
+  </form>
+</body>
+</html>
