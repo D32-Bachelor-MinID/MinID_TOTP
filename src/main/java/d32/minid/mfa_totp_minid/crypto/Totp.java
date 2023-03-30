@@ -109,7 +109,7 @@ public class Totp {
      * @param crypto: the crypto function to use
      */
     public  String generateTOTP(String key, String time, String returnDigits, String crypto){
-        int codeDigits = Integer.decode(returnDigits).intValue();
+        int codeDigits = Integer.decode(returnDigits);
 
         // Using the counter
         // First 8 bytes are for the movingFactor
