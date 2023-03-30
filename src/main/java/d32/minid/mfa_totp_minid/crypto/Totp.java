@@ -1,22 +1,26 @@
 package d32.minid.mfa_totp_minid.crypto;
 
+import org.apache.commons.codec.binary.Base32;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.time.Instant;
 
 public class Totp {
     private final int[] DIGITS_POWER
             // 0 1  2   3    4     5      6       7        8
             = {1,10,100,1000,10000,100000,1000000,10000000,100000000 };
 
-    public String runTOTP(String key, long time){
+    public String runTOTP(String key){
         long T0 = 0;
         long timePeriod = 30;
         String steps = "0";
 
         try {
+            long time = Instant.now().getEpochSecond();
             steps = Long.toHexString((time - T0)/ timePeriod).toUpperCase();
             while(steps.length() < 16){
                 steps = "0" + steps;
@@ -118,9 +122,10 @@ public class Totp {
             time = "0" + time;
         }
 
-        // Get the HEX in a Byte[]
+        // Get Byte[] values
         byte[] msg = hexStr2Bytes(time);
-        byte[] k = hexStr2Bytes(key);
+        Base32 decoder = new Base32();
+        byte[] k = decoder.decode(key);
         byte[] hash = hmacSha(crypto, k, msg);
 
         // put selected bytes into result int
