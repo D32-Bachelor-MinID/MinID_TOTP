@@ -29,11 +29,13 @@ public class SettingsController {
 
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfa = user.getMfa_method();
+        // TODO hent telefonnummer fra KRR api og vis det
+        // temp for testing
+        String phone = "99887766";
 
         switch (mfa) {
             case "OTC":
-                // TODO hent telefonnummer fra KRR api og vis det
-                mfa = "KODE PÅ SMS (" + "99999999" + ")";
+                mfa = "KODE PÅ SMS (" + phone + ")";
                 break;
             case "APP":
                 mfa = "MinID-app";
@@ -42,7 +44,7 @@ public class SettingsController {
                 mfa = "None";
         }
         model.addAttribute("mfa", mfa);
-        // TODO - hent telefonnummer fra KRR api og legg til i model
+        model.addAttribute("phone", phone);
         System.out.println(session.getAttribute("PID"));
         System.out.println(session.getId());
         return "settings";
