@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,19 +46,5 @@ public class LoginController {
         session.invalidate();
         model.addAttribute("loginError", "Invalid username or password");
         return "login";
-    }
-    //TODO flytt til egen controller
-    @GetMapping("/settings")
-    public String settings(HttpSession session, @RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient) {
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
-        SessionHandler sessionHandler = new SessionHandler(session);
-        System.out.println("access token: " + accessToken.getTokenValue());
-        if (!sessionHandler.hasAttribute(session)) {
-            session.invalidate();
-            return "redirect:/";
-        }
-        System.out.println(session.getAttribute("PID"));
-        System.out.println(session.getId());
-        return "settings";
     }
 }
