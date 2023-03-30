@@ -1,6 +1,7 @@
 package d32.minid.mfa_totp_minid;
 
 import d32.minid.mfa_totp_minid.crypto.Totp;
+import org.apache.commons.codec.binary.Base32;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +26,15 @@ public class TestTotp {
             "3132333435363738393031323334353637383930" +
             "3132333435363738393031323334353637383930" +
             "31323334";
-    private String[] sha1TOTP = {"287082", "081804", "050471", "005924", "279037", "353130"};
-    private String[] sha256TOTP = {"119246", "084774", "062674", "819424", "698825", "737706"};
-    private String[] sha512TOTP = {"693936", "091201", "943326", "441116", "618901", "863826"};
+    private String[] sha1TOTP = {"606420", "822039", "328157", "745020", "057504", "540616"};
+    private String[] sha256TOTP = {"382789", "909184", "051878", "296445", "060258", "852705"};
+    private String[] sha512TOTP = {"663803", "497119", "166168", "594927", "153970", "789565"};
 
     Totp totp;
     @Before
     public void setUp(){
         totp = new Totp();
+        System.out.println(totp.runTOTP("HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR"));
     }
     @Test
     public void testSha1(){
