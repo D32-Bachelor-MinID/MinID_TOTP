@@ -7,20 +7,18 @@ import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.time.Instant;
 
 public class Totp {
     private final int[] DIGITS_POWER
             // 0 1  2   3    4     5      6       7        8
             = {1,10,100,1000,10000,100000,1000000,10000000,100000000 };
 
-    public String runTOTP(String key){
+    public String runTOTP(String key, long time){
         long T0 = 0;
         long timePeriod = 30;
         String steps = "0";
 
         try {
-            long time = Instant.now().getEpochSecond();
             steps = Long.toHexString((time - T0)/ timePeriod).toUpperCase();
             while(steps.length() < 16){
                 steps = "0" + steps;

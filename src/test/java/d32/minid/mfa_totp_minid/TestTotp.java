@@ -1,7 +1,7 @@
 package d32.minid.mfa_totp_minid;
 
 import d32.minid.mfa_totp_minid.crypto.Totp;
-import org.apache.commons.codec.binary.Base32;
+import d32.minid.mfa_totp_minid.time.TimeProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,8 @@ public class TestTotp {
     @Before
     public void setUp(){
         totp = new Totp();
-        System.out.println(totp.runTOTP("HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR"));
+        TimeProvider tp = new TimeProvider();
+        System.out.println(totp.runTOTP("HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR", tp.getTime()));
     }
     @Test
     public void testSha1(){
