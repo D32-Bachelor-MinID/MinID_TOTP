@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CryptoRepository extends CrudRepository<Crypto, String> {
 
-    Crypto findByCryptoId(String id);
+    Crypto findByUuid(String uuid);
 }

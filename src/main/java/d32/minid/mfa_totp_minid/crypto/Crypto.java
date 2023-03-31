@@ -8,22 +8,22 @@ import jakarta.persistence.Table;
 @Table(name = "crypto")
 public class Crypto {
     @Id
-    private String id;
+    private String uuid;
     private String secret;
 
-    public Crypto(String id, String secret){
-        this.id = id;
+    public Crypto(String uuid, String secret){
+        this.uuid = uuid;
         this.secret = secret;
     }
     public Crypto(){
     }
 
-    public String getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getSecret() {

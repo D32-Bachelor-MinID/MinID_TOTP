@@ -38,7 +38,7 @@ public class MFAController {
             model.addAttribute("otcError", "Invalid OTC");
         } else if (user.getMfa_method().equals("TOTP")) {
             Validator validator = new Validator(new Totp(), new TimeProvider());
-            if(validator.isCorrectTotp(cryptoRepository.findByCryptoId(user.getUuid()).getSecret(), mfa)) {
+            if(validator.isCorrectTotp(cryptoRepository.findByUuid(user.getUuid()).getSecret(), mfa)) {
                 return "redirect:/settings";
             }
             model.addAttribute("totpError", "Invalid TOTP");
