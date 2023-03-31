@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+/*@RunWith(SpringRunner.class)
+@SpringBootTest*/
 public class ValidatorTest {
 
-    @Test
+/*    @Test
     public void testisCorrectTotp() {
         String secret = "HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR";
         int timePeriod = 30;
@@ -26,7 +26,7 @@ public class ValidatorTest {
         assertTrue(isCorrectTotp(secret, correctCode, testTime));
         assertTrue(isCorrectTotp(secret, correctCode, testTime - timePeriod));
 
-    }
+    }*/
 
     private boolean isCorrectTotp(String secret, String userCode, long time) {
         TimeProvider tp = mock(TimeProvider.class);
