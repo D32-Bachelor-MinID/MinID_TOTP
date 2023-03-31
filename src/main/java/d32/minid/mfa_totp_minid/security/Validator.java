@@ -19,5 +19,6 @@ public class Validator {
         return totp.runTOTP(secret, currentTimestep).equals(userCode) ||
                 totp.runTOTP(secret, currentTimestep - 1).equals(userCode);
     }
-//ikke la mer enn 1 verifisering skje per totp kode
+
+//TODO:ikke la mer enn 1 verifisering skje per totp kode
 }
