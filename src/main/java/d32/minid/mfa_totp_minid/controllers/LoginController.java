@@ -32,7 +32,7 @@ public class LoginController {
             System.out.println("Logincontroller");
             return "login";
         }
-        return "redirect:/settings";
+        return "redirect:/mfa";
     }
     @PostMapping("/login")
     public String loginPost(String pid, String password, HttpSession session, Model model) {
@@ -41,7 +41,7 @@ public class LoginController {
         System.out.println(user);
         if (Objects.nonNull(user) && BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified) {
             session.setAttribute("PID", pid);
-            return "redirect:/settings";
+            return "redirect:/mfa";
         }
         session.invalidate();
         model.addAttribute("loginError", "Invalid username or password");
