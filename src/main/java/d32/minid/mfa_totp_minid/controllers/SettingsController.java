@@ -42,6 +42,7 @@ public class SettingsController {
                 break;
             case "TOTP":
                 mfa = "TOTP applikasjon";
+                break;
             default:
                 mfa = "None";
         }
