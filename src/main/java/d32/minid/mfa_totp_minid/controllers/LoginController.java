@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,6 @@ public class LoginController {
 
     @GetMapping("/")
     public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
-        System.out.println("access token: " + accessToken.getTokenValue());
         SessionHandler sessionHandler = new SessionHandler(session);
         if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
             System.out.println("Logincontroller");
@@ -36,9 +33,7 @@ public class LoginController {
     }
     @PostMapping("/login")
     public String loginPost(String pid, String password, HttpSession session, Model model) {
-        System.out.println("post login with pid: " + pid + " and password: " + password);
         User user = userRepository.findByPid(pid);
-        System.out.println(user);
         if (Objects.nonNull(user) && BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified) {
             session.setAttribute("PID", pid);
             return "redirect:/mfa";

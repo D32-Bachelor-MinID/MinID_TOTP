@@ -15,9 +15,8 @@ public class Validator {
     }
 
     public boolean isCorrectTotp(String secret, String userCode) {
-        long currentTimestep = Math.floorDiv(tp.getTime(), timePeriod);
-        return totp.runTOTP(secret, currentTimestep).equals(userCode) ||
-                totp.runTOTP(secret, currentTimestep - 1).equals(userCode);
+        return totp.runTOTP(secret, tp.getTime()).equals(userCode) ||
+                totp.runTOTP(secret, tp.getTime() - timePeriod).equals(userCode);
     }
 
 //TODO:ikke la mer enn 1 verifisering skje per totp kode
