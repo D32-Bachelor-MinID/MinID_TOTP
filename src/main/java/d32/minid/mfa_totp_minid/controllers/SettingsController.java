@@ -40,6 +40,8 @@ public class SettingsController {
             case "APP":
                 mfa = "MinID-app";
                 break;
+            case "TOTP":
+                mfa = "TOTP applikasjon";
             default:
                 mfa = "None";
         }

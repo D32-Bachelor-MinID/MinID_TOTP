@@ -21,13 +21,15 @@ public class TestUserRepository {
     private UserRepository userRepository;
     @Before
     public void setUp() {
-        if(userRepository.findByPid("09123122938") != null) {
-            userRepository.delete(userRepository.findByPid("09123122938"));
-        }
+        // if(userRepository.findByPid("09123122938") == null) {
+        //    userRepository.delete(userRepository.findByPid("09123122938"));
+        //}
         String password = "password";
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        User user1 = new User(randomUUID().toString(), "09123122938", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", bcryptHashString, 0, 0, 0, 0, 0, 0);
-        userRepository.save(user1);
+        // User user1 = new User(randomUUID().toString(), "09123122938", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", bcryptHashString, 0, 0, 0, 0, 0, 0);
+        // userRepository.save(user1);
+        // User user2 = new User(randomUUID().toString(), "11223312345", "AKTIVERINGSBREV", "NEW_USER", "LOW", "TOTP", bcryptHashString, 0, 0, 0, 0, 0, 0);
+        // userRepository.save(user2);
     }
     @Test
     public void testFetchData(){
@@ -39,7 +41,7 @@ public class TestUserRepository {
     public void verifyPasswordHashTest() {
         User usera = userRepository.findByPid("09123122938");
         String password = "password";
-        assertTrue( BCrypt.verifyer().verify(password.toCharArray(), usera.getPassword()).verified);
+        assertTrue(BCrypt.verifyer().verify(password.toCharArray(), usera.getPassword()).verified);
     }
 
 }
