@@ -33,19 +33,12 @@ public class SettingsController {
         // temp for testing
         String phone = "99887766";
 
-        switch (mfa) {
-            case "OTC":
-                mfa = "KODE PÅ SMS (" + phone + ")";
-                break;
-            case "APP":
-                mfa = "MinID-app";
-                break;
-            case "TOTP":
-                mfa = "TOTP applikasjon";
-                break;
-            default:
-                mfa = "None";
-        }
+        mfa = switch (mfa) {
+            case "OTC" -> "KODE PÅ SMS (" + phone + ")";
+            case "APP" -> "MinID-app";
+            case "TOTP" -> "TOTP applikasjon";
+            default -> "None";
+        };
         model.addAttribute("mfa", mfa);
         model.addAttribute("phone", phone);
         System.out.println(session.getAttribute("PID"));
