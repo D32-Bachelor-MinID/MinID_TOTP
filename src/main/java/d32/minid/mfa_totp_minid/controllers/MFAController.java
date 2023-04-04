@@ -1,6 +1,10 @@
 package d32.minid.mfa_totp_minid.controllers;
 
+import d32.minid.mfa_totp_minid.crypto.Totp;
+import d32.minid.mfa_totp_minid.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.repository.UserRepository;
+import d32.minid.mfa_totp_minid.security.Validator;
+import d32.minid.mfa_totp_minid.time.TimeProvider;
 import d32.minid.mfa_totp_minid.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MFAController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CryptoRepository cryptoRepository;
 
     @GetMapping("/mfa")
     public String mfa(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
@@ -31,8 +37,11 @@ public class MFAController {
             if (otc.equals("otc12")) return "redirect:/settings";
             model.addAttribute("otcError", "Invalid OTC");
         } else if (user.getMfa_method().equals("TOTP")) {
-            //TODO validate TOTP
-            return "redirect:/settings";
+            Validator validator = new Validator(new Totp(), new TimeProvider());
+            if(validator.isCorrectTotp(cryptoRepository.findByUuid(user.getUuid()).getSecret(), mfa)) {
+                return "redirect:/settings";
+            }
+            model.addAttribute("totpError", "Invalid TOTP");
         }
         model.addAttribute("Error", "Invalid " + mfa);
         return "mfa";
