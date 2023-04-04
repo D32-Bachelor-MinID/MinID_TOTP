@@ -19,7 +19,27 @@ public class ChangeMFAController {
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfaMethod = user.getMfa_method();
 
+
+
+        boolean otc = false;
+        boolean totp = false;
+        boolean app = false;
+
+        switch (mfaMethod) {
+            case "OTC" -> otc = true;
+            case "TOTP" -> totp = true;
+            case "APP" -> app = true;
+        }
+
+        System.out.println("MFA: " + mfaMethod);
+        System.out.println("OTC: " + otc);
+        System.out.println("TOTP: " + totp);
+        System.out.println("APP: " + app);
+
         model.addAttribute("chosen-mfa", mfaMethod);
+        model.addAttribute("otc", otc);
+        model.addAttribute("totp", totp);
+        model.addAttribute("app", app);
         model.addAttribute("phone", phone);
 
         return "mfa_options";

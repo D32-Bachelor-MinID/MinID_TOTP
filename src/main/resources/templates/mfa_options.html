@@ -36,12 +36,13 @@
 
     <div class="Box_main">
 
-      <form id="user" action="/minprofil/minid/login-method" method="post" autocomplete="off">
+      <form id="user" action="/minprofil/minid/login-method" method="post" autocomplete="off" >
         <div class="fm-Fields">
           <div class="fm-RadioButtons">
 
             <div class="fm-RadioButton">
-              <input id="sms" name="chosen-mfa" type="radio" value="OTC"/>
+              <input id="sms" name="chosen-mfa" type="radio" value="OTC"
+                     th:checked="${otc}"/>
               <label for="sms" th:text="'Kode på SMS: '+${phone}">
                 Kode på SMS
               </label>
@@ -49,12 +50,13 @@
 
             <div class="fm-RadioButton">
               <input id="totp" name="chosen-mfa" th:type="radio" th:value="TOTP"
-              th:checked="${chosen-mfa}.contains('TOTP')"/>
+              th:checked="${totp}"/>
               <label for="totp">Kode fra app</label>
             </div>
 
             <div class="fm-RadioButton">
-              <input id="app" name="chosen-mfa" type="radio" value="APP"/>
+              <input id="app" name="chosen-mfa" type="radio" value="APP"
+              th:checked="${app}"/>
               <label for="app" >MinID app</label>
             </div>
           </div>
