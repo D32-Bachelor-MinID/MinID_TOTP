@@ -36,7 +36,7 @@
 
     <div class="Box_main">
 
-      <form id="user" action="/minprofil/minid/login-method" method="post" autocomplete="off" >
+      <form id="mfa" method="post" th:action="@{/mfa_options}" autocomplete="off" >
         <div class="fm-Fields">
           <div class="fm-RadioButtons">
 
@@ -48,17 +48,24 @@
               </label>
             </div>
 
-            <div class="fm-RadioButton">
+            <div class="fm-RadioButton" th:if="${app} ">
+              <input id="app" name="chosen-mfa" type="radio" value="APP"
+              th:checked="checked"/>
+              <label for="app" >MinID app</label>
+            </div>
+
+            <div class="fm-RadioButton" th:if="${totp}"  >
               <input id="totp" name="chosen-mfa" th:type="radio" th:value="TOTP"
-              th:checked="${totp}"/>
+                     th:checked="${totp}"/>
               <label for="totp">Kode fra app</label>
             </div>
 
-            <div class="fm-RadioButton">
-              <input id="app" name="chosen-mfa" type="radio" value="APP"
-              th:checked="${app}"/>
-              <label for="app" >MinID app</label>
+            <div class="fm-RadioButton" th:if="${not totp}">
+              <button>
+                <span>Legg til autentisering med ønsket app</span>
+              </button>
             </div>
+
           </div>
         </div>
         <div class="fm-Controls with-Normal with-Action">
@@ -75,20 +82,21 @@
         </div>
         <div>
           <input type="hidden" name="_csrf" value="008cd011-8f51-4a04-9d68-e03ca29d6e8f" />
-        </div></form>
+        </div>
+      </form>
     </div>
   </section>
 </main>
 
 
-<script type="text/javascript" src="/minprofil/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/minprofil/js/jquery-ui-1.12.1.min.js"></script>
-<script type="text/javascript" src="/minprofil/js/accordion.js?v=1"></script>
-<script type="text/javascript" src="/minprofil/js/disabled-links.js?v=1"></script>
-<script type="text/javascript" src="/minprofil/js/header.js?v=2"></script>
-<script type="text/javascript" src="/minprofil/js/handleButtonKeyPress.js?v=1"></script>
-<script type="text/javascript" src="/minprofil/js/toggleMenues.js?v=1"></script>
-<script type="text/javascript" src="/minprofil/js/double_click_protection.js?v=2"></script>
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2.min.js"></script>
+<!-- script type="text/javascript" src="/js/accordion.js?v=1"></--script -->
+<!-- script-- type="text/javascript" src="/js/disabled-links.js?v=1"></script -->
+<script type="text/javascript" src="/js/header.js?v=2"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js?v=1"></script>
+<script type="text/javascript" src="/js/toggleMenues.js?v=1"></script>
+<script type="text/javascript" src="/js/double_click_protection.js?v=2"></script>
 
 <footer class="f-Main">
   <div class="f-Main_Content">

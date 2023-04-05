@@ -9,6 +9,9 @@ import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2Aut
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 public class ChangeMFAController {
     @Autowired
@@ -19,8 +22,6 @@ public class ChangeMFAController {
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfaMethod = user.getMfa_method();
 
-
-
         boolean otc = false;
         boolean totp = false;
         boolean app = false;
@@ -30,11 +31,9 @@ public class ChangeMFAController {
             case "TOTP" -> totp = true;
             case "APP" -> app = true;
         }
-
-        System.out.println("MFA: " + mfaMethod);
-        System.out.println("OTC: " + otc);
-        System.out.println("TOTP: " + totp);
-        System.out.println("APP: " + app);
+        //display sms
+        //display app if registered else blank
+        //display totp if registered else link to register
 
         model.addAttribute("chosen-mfa", mfaMethod);
         model.addAttribute("otc", otc);
@@ -42,6 +41,20 @@ public class ChangeMFAController {
         model.addAttribute("app", app);
         model.addAttribute("phone", phone);
 
+
+        System.out.println("get mfa_options");
         return "mfa_options";
+    }
+
+    @PostMapping("/mfa_options")
+    public String changeMFA(HttpSession session,
+                            @RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient,
+                            @RequestParam("mfa") String mfa) {
+
+        System.out.println("post mfa_options");
+        System.out.println("MFA: " + mfa);
+
+
+        return "redirect:/settings";
     }
 }
