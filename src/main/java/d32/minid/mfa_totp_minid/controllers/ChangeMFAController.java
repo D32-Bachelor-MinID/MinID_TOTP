@@ -4,20 +4,16 @@ import d32.minid.mfa_totp_minid.repository.UserRepository;
 import d32.minid.mfa_totp_minid.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ChangeMFAController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/mfa_options")
-    public String changeMFA(HttpSession session, @RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient,Model model) {
+    public String changeMFA(HttpSession session,Model model) {
         String phone = "99887766";
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfaMethod = user.getMfa_method();
@@ -47,14 +43,14 @@ public class ChangeMFAController {
     }
 
     @PostMapping("/mfa_options")
-    public String changeMFA(HttpSession session,
-                            @RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient,
-                            @RequestParam("mfa") String mfa) {
+    public String changeMFA(HttpSession session, @RequestParam("chosen-mfa") String mfa) {
 
         System.out.println("post mfa_options");
-        System.out.println("MFA: " + mfa);
 
 
+        User user = userRepository.findByPid((String) session.getAttribute("PID"));
+        user.setMfa_method(mfa);
+        userRepository.save(user);
         return "redirect:/settings";
     }
 }

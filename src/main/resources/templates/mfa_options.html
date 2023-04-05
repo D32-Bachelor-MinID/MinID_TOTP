@@ -55,14 +55,16 @@
             </div>
 
             <div class="fm-RadioButton" th:if="${totp}"  >
-              <input id="totp" name="chosen-mfa" th:type="radio" th:value="TOTP"
+              <input id="totp" name="chosen-mfa" th:type="radio" value="TOTP"
                      th:checked="${totp}"/>
               <label for="totp">Kode fra app</label>
             </div>
 
             <div class="fm-RadioButton" th:if="${not totp}">
               <button>
-                <span>Legg til autentisering med ønsket app</span>
+                <span>Legg til autentisering med ønsket app
+                  <!-- TODO: Send videre til neste view -->
+                </span>
               </button>
             </div>
 
