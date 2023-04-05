@@ -10,10 +10,12 @@ public class Crypto {
     @Id
     private String uuid;
     private String secret;
+    private String previnput;
 
-    public Crypto(String uuid, String secret){
+    public Crypto(String uuid, String secret, String previnput){
         this.uuid = uuid;
         this.secret = secret;
+        this.previnput = previnput;
     }
     public Crypto(){
     }
@@ -32,5 +34,13 @@ public class Crypto {
 
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    public String getPrevinput() {
+        return previnput;
+    }
+
+    public void setPrevinput(String previnput) {
+        this.previnput = previnput;
     }
 }

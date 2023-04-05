@@ -1,5 +1,6 @@
 package d32.minid.mfa_totp_minid.controllers;
 
+import d32.minid.mfa_totp_minid.crypto.Crypto;
 import d32.minid.mfa_totp_minid.crypto.Totp;
 import d32.minid.mfa_totp_minid.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.repository.UserRepository;
@@ -38,7 +39,10 @@ public class MFAController {
             model.addAttribute("otcError", "Invalid OTC");
         } else if (user.getMfa_method().equals("TOTP")) {
             Validator validator = new Validator(new Totp(), new TimeProvider());
-            if(validator.isCorrectTotp(cryptoRepository.findByUuid(user.getUuid()).getSecret(), mfa)) {
+            Crypto crypto = cryptoRepository.findByUuid(user.getUuid());
+            if(validator.validTotp(crypto, mfa)) {
+                crypto.setPrevinput(mfa);
+                cryptoRepository.save(crypto);
                 return "redirect:/settings";
             }
             model.addAttribute("totpError", "Invalid TOTP");
