@@ -24,7 +24,7 @@ public class TestUserRepository {
     private CryptoRepository cryptoRepository;
     @Before
     public void setUp() {
-         if(userRepository.findByPid("09123122938") == null) {
+         if(userRepository.findByPid("09123122938") != null) {
              User user = userRepository.findByPid("09123122938");
              if (cryptoRepository.findByUuid(user.getUuid()) != null) {
                  cryptoRepository.delete(cryptoRepository.findByUuid(user.getUuid()));
