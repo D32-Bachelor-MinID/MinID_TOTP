@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Digitaliseringsdirektoratet</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/open-sans/open-sans.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" media="all">
+  <meta name="description" content="Dine kontaktopplysninger">
+  <meta name="keywords" content="ID-porten, DIFI">
+  <meta name="language" content="no">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body id="body" class="null">
+<header class="h-Main">
+  <div class="h-Main_Content">
+    <div class="h-main_Content_Placeholder">
+      <span class="h-Main_Username userinfo-dsf-name"></span>
+    </div>
+    <a class="h-Menu_Trigger-mobile" href="" role="button">
+      <span class="fa fa-bars"></span>
+    </a>
+    <div id="js-menues" class="h-Menu_Container">
+      <span class="h-Main_Username userinfo-dsf-name"></span>
+      <a id="LOGOUT_MINPROFIL" class="h_Main_Content_Link" href=""><!--TODO:riktig href link-->
+        <span>Logg ut</span>
+      </a>
+      <nav class="h-Menu">
+        <a class="h-Menu_Trigger" href="">
+          <span>Språk</span>
+          <span class="fa fa-angle-down fa-lg"></span>
+        </a>
+        <ul>
+          <li>
+            <a href="?locale=nb" class="h-Main_Menu_Element">Bokmål</a>
+          </li>
+          <li>
+            <a href="?locale=nn" class="h-Main_Menu_Element">Nynorsk</a>
+          </li>
+          <li>
+            <a href="?locale=en" class="h-Main_Menu_Element">Engelsk</a>
+          </li>
+          <li>
+            <a href="?locale=se" class="h-Main_Menu_Element js-last">Sàmegiella</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+<section class="Box">
+  <div class="Box_Section Box_Section-ServiceProvider">
+    <div class="Box_Section_Title">Digitaliseringsdirektoratet</div>
+  </div>
+  <div class="Box_header">
+    <h1 class="Box_header_title with-logo logo-eid-gray">
+      Velg elektronisk ID
+    </h1>
+  </div>
+  <div class="Box_main">
+    <ul class="ln-List">
+      <li>
+        <a id="MinIDEksternChain" href="/" class="ln-List_Element" title="Velg MinID">
+          <span class="ln-List_Element_Logo">
+            <img th:src="@{/images/svg/Minid.svg}" alt="MinID">
+          </span>
+          <div class="ln-List_Element_Service">
+            <span class="ln-List_Element_Service_Name">MinID</span>
+            <span class="ln-List_Element_Service_Info">Med kode fra SMS eller PIN-kodebrev</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a id="BankIDOIDCChain" href="#" class="ln-List_Element" title="Velg BankID">
+                                            <span class="ln-List_Element_Logo">
+                                                <img th:src="@{/images/svg/Bankid.svg}" alt="BankID">
+                                            </span>
+          <div class="ln-List_Element_Service">
+            <span class="ln-List_Element_Service_Name">BankID</span>
+            <span class="ln-List_Element_Service_Info">Bruk BankID-app, kodebrikke eller BankID på mobil</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a id="BuypassOIDCChain" href="#" class="ln-List_Element" title="Velg Buypass ID">
+                                        <span class="ln-List_Element_Logo">
+                                            <img th:src="@{images/svg/Buypass.svg}" alt="Buypass ID">
+                                        </span>
+          <div class="ln-List_Element_Service">
+            <span class="ln-List_Element_Service_Name">Buypass ID</span>
+            <span class="ln-List_Element_Service_Info">Bruk Buypass ID i smartkort eller mobil</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a id="CommfidesFrame" href="#" class="ln-List_Element" title="Velg Commfides">
+                                                        <span class="ln-List_Element_Logo">
+                                                            <img th:src="@{images/svg/commfides.svg}" alt="Commfides">
+                                                        </span>
+          <div class="ln-List_Element_Service">
+            <span class="ln-List_Element_Service_Name">Commfides</span>
+            <span class="ln-List_Element_Service_Info">Med smartkort</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="Box_main Box_inside-footer"></div>
+  <div id="footer-box" class="Box_footer">
+    <div class="Box_footer-links">
+      <ul>
+        <li>
+          <a target="_blank" href="https://eid.difi.no/nb/id-porten/slik-skaffer-du-deg-elektronisk-id">
+            <span>Slik skaffer du deg elektronisk ID</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js"></script>
+<script type="text/javascript" src="/js/minid-menu-toggle.js"></script>
+</body>
+</html>
