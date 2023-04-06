@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Dine kontaktopplysninger</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/open-sans/open-sans.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" media="all">
+  <meta name="description" content="Dine kontaktopplysninger"/>
+  <meta name="keywords" content="ID-porten, DIFI"/>
+  <meta name="language" content="no"/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="hide-mobileMenu popup" id="body">
+<div id="pageid" style="display: none">mp5</div>
+<header class="h-Main">
+  <div class="h-Main_Content">
+    <div class="h-Main_Content_Placeholder">
+      <span class="h-Main_Content_Provider"></span>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="Box">
+    <div class="Box_header">
+      <h1 class="Box_header-title with-close-button">Logg inn med:</h1>
+      <span class="Box_header-close">
+    			<a href="./">
+      				<span class="fa fa-close">
+        				<span class="visuallyHidden">Avbryt</span>
+                	</span>
+				</a>
+            </span>
+    </div>
+
+    <div class="Box_main">
+
+      <form id="mfa" method="post" th:action="@{/mfa_options}" autocomplete="off" >
+        <div class="fm-Fields">
+          <div class="fm-RadioButtons">
+
+            <div class="fm-RadioButton">
+              <input id="sms" name="chosen-mfa" type="radio" value="OTC"
+                     th:checked="${otc}"/>
+              <label for="sms" th:text="'Kode på SMS: '+${phone}">
+                Kode på SMS
+              </label>
+            </div>
+
+            <div class="fm-RadioButton" th:if="${app} ">
+              <input id="app" name="chosen-mfa" type="radio" value="APP"
+              th:checked="checked"/>
+              <label for="app" >MinID app</label>
+            </div>
+
+            <div class="fm-RadioButton" th:if="${totp}"  >
+              <input id="totp" name="chosen-mfa" th:type="radio" value="TOTP"
+                     th:checked="${totp}"/>
+              <label for="totp">Kode fra app</label>
+            </div>
+
+            <div class="fm-RadioButton" th:if="${not totp}">
+              <button>
+                <span>Legg til autentisering med ønsket app
+                  <!-- TODO: Send videre til neste view -->
+                </span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+        <div class="fm-Controls with-Normal with-Action">
+          <button class="btn btn-Action" type="submit" name="SAVEBUTTON_MINPROFIL">
+            <span>Lagre</span>
+          </button>
+
+          <a href="./"
+             class="btn btn-Normal"
+             id="CANCELBUTTON_MINPROFIL"
+             onKeyPress="handleButtonKeyPress(event)">
+            <span>Avbryt</span>
+          </a>
+        </div>
+        <div>
+          <input type="hidden" name="_csrf" value="008cd011-8f51-4a04-9d68-e03ca29d6e8f" />
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2.min.js"></script>
+<!-- script type="text/javascript" src="/js/accordion.js?v=1"></--script -->
+<!-- script-- type="text/javascript" src="/js/disabled-links.js?v=1"></script -->
+<script type="text/javascript" src="/js/header.js?v=2"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js?v=1"></script>
+<script type="text/javascript" src="/js/toggleMenues.js?v=1"></script>
+<script type="text/javascript" src="/js/double_click_protection.js?v=2"></script>
+
+<footer class="f-Main">
+  <div class="f-Main_Content">
+    <div class="f-Main_Logo" aria-hidden="true"></div>
+    <div class="f-Main_Info">
+      Brukerstøtte: <a href="mailto:brukerstotte@difi.no" class="f-Main_Link"><span>brukerstotte@difi.no</span></a>
+      <a href="tel:80030300" class="f-Main_Link"><span>Tlf: 800 30 300</span></a>
+      <a target="_blank" href="http://eid.difi.no/nb/kommunikasjon-pa-nett-som-hovedregel" class="f-Main_Link">Om delt kontaktinformasjon</a>
+      <p>Driftet av <span>Digitaliseringsdirektoratet</span></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
