@@ -6,6 +6,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import d32.minid.mfa_totp_minid.crypto.DefaultKeyGenerator;
+import d32.minid.mfa_totp_minid.user.User;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -27,6 +30,12 @@ public class QrGenerator {
 
     public void setQrImageSize(int qrImageSize) {
         this.qrImageSize = qrImageSize;
+    }
+
+    public QrData qrSetup(User user){
+        DefaultKeyGenerator keyGenerator = new DefaultKeyGenerator();
+        String secret = keyGenerator.generate();
+        return new QrData("totp", user.getPid(), secret, "MinID", "SHA1", 6, 30);
     }
 
     public byte[] generate(QrData data) {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>2-Faktor Registrering</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/open-sans/open-sans.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" media="all">
+    <meta name="description" content="Dine kontaktopplysninger">
+    <meta name="keywords" content="ID-porten, DIFI">
+    <meta name="language" content="no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body id="body" class="null">
+<header th:insert="fragments/general.html :: header" class="h-Main"></header>
+<main>
+    <section class="Box">
+        <div class="Box_header">
+            <h1 class="Box_header-title with-logo logo-eid-gray">Scan QR-Koden</h1>
+        </div>
+        <div class="Box_main">
+            <img th:src="${dataUri}"/>
+            <span class="label">Scan QR-Koden med din valgte autentiseringsapp</span>
+            <form>
+                <div class="fm-Fields">
+                    <div class="fm-Field">
+                        <label for="totpinput">6-Siffer kode</label>
+                        <input type="text" id="totpinput" name="totpinput" placeholder="Autentiseringskode fra app" maxlength="6">
+                    </div>
+                </div>
+                <div class="fm-Controls with-Normal with-Action">
+                    <button id="next" class="btn btn-Action" name="next" type="submit">
+                        <span>Neste</span>
+                    </button>
+                    <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+                        <span>Avbryt</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js"></script>
+<script type="text/javascript" src="/js/minid-menu-toggle.js"></script>
+</body>
+</html>
