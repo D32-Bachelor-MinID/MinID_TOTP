@@ -31,7 +31,7 @@ public class TotpInitController {
         QrData qrData = qrGenerator.qrSetup(user);
 
         cryptoRepository.save(new Crypto(user.getUuid(), qrData.getSecret(), ""));
-        model.addAttribute("dataUri", qrGenerator.generate(qrData));
+        model.addAttribute("dataUri", qrGenerator.getUriForImage(qrData, "image/png"));
 
         return "totpReg";
     }

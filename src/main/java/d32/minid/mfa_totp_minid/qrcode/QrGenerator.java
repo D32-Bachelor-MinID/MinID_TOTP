@@ -8,16 +8,20 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import d32.minid.mfa_totp_minid.crypto.DefaultKeyGenerator;
 import d32.minid.mfa_totp_minid.user.User;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+
 public class QrGenerator {
+    private Base64 base64;
     private int qrImageSize = 350;
     private final Writer writer;
 
     public QrGenerator() {
         this(new QRCodeWriter());
+        base64 = new Base64();
     }
 
     public QrGenerator(Writer writer) {
@@ -47,5 +51,9 @@ public class QrGenerator {
         } catch (WriterException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getUriForImage(QrData qrData, String type){
+        return String.format("data:%s;base64,%s", type, new String(base64.encode(generate(qrData))));
     }
 }
