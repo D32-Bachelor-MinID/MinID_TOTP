@@ -44,6 +44,6 @@ public class QrDataTest {
         bis = new ByteArrayInputStream(generator.generate(qrtest512));
         bImage = ImageIO.read(bis);
         ImageIO.write(bImage, "png", new File("qrPic512.png")); //generer en PNG for qrkode-testing
-        assertEquals(qrtest.getUri(), "otpauth://totp/11223312345?secret="+key+"&issuer=DigDir%20MinID&algorithm=SHA1&digits=6&period=30");
+        assertEquals(qrtest.getUri(), "otpauth://totp/11223312345?secret="+key+"&issuer=DigDir%20MinID%2FSHA1&algorithm=SHA1&digits=6&period=30");
     }
 }

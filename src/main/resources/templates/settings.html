@@ -28,7 +28,6 @@
                         <span class="text">
                             <label th:text="${mfa}">MinID app</label>
                         </span>
-<!--                        <a th:href="@{/login-method/changeLogin}">TODO-->
                         <a th:href="@{/mfa_options}">
                             <span class="visuallyHidden">Endre innloggingsmetode</span>
                             <span class="fa fa-pencil"></span>
@@ -38,7 +37,6 @@
                 <div class="fm-Field">
                     <span class="label">Mobilnummer:</span>
                     <div class="with-icon">
-<!--                        <span class="text disabled" th:text="${user.tlf}"></span>TODO-->
                         <span class="text disabled" th:text="${phone}"></span>
                     </div>
                 </div>
@@ -46,7 +44,6 @@
                     <span class="label">Nytt passord:</span>
                     <div class="with-icon">
                         <span class="text">**********</span>
-                      <!-- <a th:href="@{/newpassword}">TODO-->
                           <a href="/newpassword">
                             <span class="visuallyHidden">Endre passord</span>
                             <span class="fa fa-pencil"></span>
