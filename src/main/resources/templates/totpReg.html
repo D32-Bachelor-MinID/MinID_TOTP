@@ -22,7 +22,7 @@
         <div class="Box_main">
             <img th:src="${dataUri}"/>
             <span class="label">Scan QR-Koden med din valgte autentiseringsapp</span>
-            <form>
+            <form th:action="@{/stepTwo}" method="post">
                 <div class="fm-Fields">
                     <div class="fm-Field">
                         <label for="totpinput">6-Siffer kode</label>
