@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Dine kontaktopplysninger</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.min.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/open-sans/open-sans.css}" media="all">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}" media="all">
+  <meta name="description" content="Dine kontaktopplysninger">
+  <meta name="keywords" content="ID-porten, DIFI">
+  <meta name="language" content="no">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body id="body" class="null">
+<header class="h-Main">
+  <div class="h-Main_Content">
+    <div class="h-main_Content_Placeholder">
+      <span class="h-Main_Username userinfo-dsf-name"></span>
+    </div>
+    <a class="h-Menu_Trigger-mobile" href="" role="button">
+      <span class="fa fa-bars"></span>
+    </a>
+    <div id="js-menues" class="h-Menu_Container">
+      <span class="h-Main_Username userinfo-dsf-name"></span>
+      <a id="LOGOUT_MINPROFIL" class="h_Main_Content_Link" href=""><!--TODO:riktig href link-->
+        <span>Logg ut</span>
+      </a>
+      <nav class="h-Menu">
+        <a class="h-Menu_Trigger" href="">
+          <span>Språk</span>
+          <span class="fa fa-angle-down fa-lg"></span>
+        </a>
+        <ul>
+          <li>
+            <a href="?locale=nb" class="h-Main_Menu_Element">Bokmål</a>
+          </li>
+          <li>
+            <a href="?locale=nn" class="h-Main_Menu_Element">Nynorsk</a>
+          </li>
+          <li>
+            <a href="?locale=en" class="h-Main_Menu_Element">Engelsk</a>
+          </li>
+          <li>
+            <a href="?locale=se" class="h-Main_Menu_Element js-last">Sàmegiella</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="Box">
+    <div th:insert="fragments/totpreg.html :: totp_info"></div>
+  </section>
+</main>
+<script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>
+<script type="text/javascript" src="/js/handleButtonKeyPress.js"></script>
+<script type="text/javascript" src="/js/minid-menu-toggle.js"></script>
+</body>
+</html>
