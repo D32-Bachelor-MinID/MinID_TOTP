@@ -14,13 +14,7 @@
 </head>
 <body class="hide-mobileMenu popup" id="body">
 <div id="pageid" style="display: none">mp5</div>
-<header class="h-Main">
-  <div class="h-Main_Content">
-    <div class="h-Main_Content_Placeholder">
-      <span class="h-Main_Content_Provider"></span>
-    </div>
-  </div>
-</header>
+<header th:insert="fragments/general.html :: blankHeader" class="h-Main"></header>
 <main>
   <section class="Box">
     <div class="Box_header">
@@ -63,7 +57,6 @@
             <div class="fm-RadioButton" th:if="${not totp}">
               <a href="/totpInit">
                 <span>Legg til autentisering med ønsket app
-                  <!-- TODO: Send videre til neste view -->
                 </span>
               </a>
             </div>
@@ -75,15 +68,11 @@
             <span>Lagre</span>
           </button>
 
-          <a href="./"
+          <a href="/settings"
              class="btn btn-Normal"
-             id="CANCELBUTTON_MINPROFIL"
-             onKeyPress="handleButtonKeyPress(event)">
+             id="CANCELBUTTON_MINPROFIL">
             <span>Avbryt</span>
           </a>
-        </div>
-        <div>
-          <input type="hidden" name="_csrf" value="008cd011-8f51-4a04-9d68-e03ca29d6e8f" />
         </div>
       </form>
     </div>

@@ -13,45 +13,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body id="body" class="null">
-<header class="h-Main">
-  <div class="h-Main_Content">
-    <div class="h-main_Content_Placeholder">
-      <span class="h-Main_Username userinfo-dsf-name"></span>
-    </div>
-    <a class="h-Menu_Trigger-mobile" href="" role="button">
-      <span class="fa fa-bars"></span>
-    </a>
-    <div id="js-menues" class="h-Menu_Container">
-      <span class="h-Main_Username userinfo-dsf-name"></span>
-      <a id="LOGOUT_MINPROFIL" class="h_Main_Content_Link" href=""><!--TODO:riktig href link-->
-        <span>Logg ut</span>
-      </a>
-      <nav class="h-Menu">
-        <a class="h-Menu_Trigger" href="">
-          <span>Språk</span>
-          <span class="fa fa-angle-down fa-lg"></span>
-        </a>
-        <ul>
-          <li>
-            <a href="?locale=nb" class="h-Main_Menu_Element">Bokmål</a>
-          </li>
-          <li>
-            <a href="?locale=nn" class="h-Main_Menu_Element">Nynorsk</a>
-          </li>
-          <li>
-            <a href="?locale=en" class="h-Main_Menu_Element">Engelsk</a>
-          </li>
-          <li>
-            <a href="?locale=se" class="h-Main_Menu_Element js-last">Sàmegiella</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+<header th:insert="fragments/general.html :: blankHeader" class="h-Main"></header>
 <main>
   <section class="Box">
-    <div th:insert="fragments/totpreg.html :: totp_info"></div>
+    <div>
+      <h1>Steg 1</h1>
+      <h1>Installer app</h1>
+      <img src="/images/authenticators.png" alt="authenticators" width="100%" height="100%" >
+      <p>Du kan selv velge hvilken applikasjon du vil benytte. Først må du installere applikasjonen på din telefon,
+        for eksempel <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">Google Authenticator</a>
+        <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator</a> eller
+        <a href="https://apps.apple.com/us/app/twilio-authy/id494168017">Twilio Authy</a></p>
+      <a href="/stepTwo">
+        <button id="neste">Neste</button>
+      </a>
+    </div>
   </section>
 </main>
 <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
