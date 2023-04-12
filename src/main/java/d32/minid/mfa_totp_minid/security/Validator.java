@@ -24,7 +24,7 @@ public class Validator {
     }
 
     public boolean isCorrectTotp(String secret, String userCode) {
-        return totp.runTOTP(secret, tp.getTime()).equals(userCode) ||
-                totp.runTOTP(secret, tp.getTime() - timePeriod).equals(userCode);
+        return totp.runTOTP(secret, timer.getTime()).equals(userCode) ||
+                totp.runTOTP(secret, timer.getTime() - timePeriod).equals(userCode);
     }
 }
