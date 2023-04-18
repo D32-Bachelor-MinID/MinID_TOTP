@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ChooseLoginController {
-    @GetMapping("/chooseLogin")
+    @GetMapping("/")
     public String chooseLogin() {
         return "chooseLogin";
     }
