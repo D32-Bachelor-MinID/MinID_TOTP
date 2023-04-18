@@ -22,16 +22,16 @@ public class LoginController {
     private UserRepository userRepository;
     private DatabindContext session;
 
-    @GetMapping("/")
+    @GetMapping("/loginn")
     public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
         SessionHandler sessionHandler = new SessionHandler(session);
         if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
             System.out.println("Logincontroller");
-            return "login";
+            return "loginn";
         }
         return "redirect:/mfa";
     }
-    @PostMapping("/login")
+    @PostMapping("/loginn")
     public String loginPost(String pid, String password, HttpSession session, Model model) {
         User user = userRepository.findByPid(pid);
         if (Objects.nonNull(user) && BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified) {
@@ -40,6 +40,6 @@ public class LoginController {
         }
         session.invalidate();
         model.addAttribute("loginError", "Invalid username or password");
-        return "login";
+        return "loginn";
     }
 }

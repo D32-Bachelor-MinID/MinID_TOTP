@@ -46,12 +46,16 @@
               <input id="app" name="chosen-mfa" type="radio" value="APP"
               th:checked="checked"/>
               <label for="app" >MinID app</label>
+              <a href="/totpRemove" class="btn btn-Normal">
+                <span>Fjern app</span></a>
             </div>
-
+          </div>
             <div class="fm-RadioButton" th:if="${totp}"  >
               <input id="totp" name="chosen-mfa" th:type="radio" value="TOTP"
                      th:checked="${totp}"/>
               <label for="totp">Kode fra app</label>
+              <a href="/totpRemove" class="btn btn-Normal">
+                <span>Fjern app</span></a>
             </div>
 
             <div class="fm-RadioButton" th:if="${not totp}">
@@ -67,7 +71,6 @@
           <button class="btn btn-Action" type="submit" name="SAVEBUTTON_MINPROFIL">
             <span>Lagre</span>
           </button>
-
           <a href="/settings"
              class="btn btn-Normal"
              id="CANCELBUTTON_MINPROFIL">
