@@ -1,7 +1,6 @@
 package d32.minid.mfa_totp_minid.controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.fasterxml.jackson.databind.DatabindContext;
 import d32.minid.mfa_totp_minid.repository.UserRepository;
 import d32.minid.mfa_totp_minid.security.SessionHandler;
 import d32.minid.mfa_totp_minid.user.User;
@@ -20,13 +19,11 @@ import java.util.Objects;
 public class LoginController {
     @Autowired
     private UserRepository userRepository;
-    private DatabindContext session;
 
     @GetMapping("/")
     public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
         SessionHandler sessionHandler = new SessionHandler(session);
         if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
-            System.out.println("Logincontroller");
             return "login";
         }
         return "redirect:/mfa";
