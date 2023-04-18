@@ -1,38 +1,55 @@
 package d32.minid.mfa_totp_minid;
 
+import d32.minid.mfa_totp_minid.crypto.Crypto;
 import d32.minid.mfa_totp_minid.crypto.Totp;
 import d32.minid.mfa_totp_minid.security.Validator;
-import d32.minid.mfa_totp_minid.time.TimeProvider;
+import d32.minid.mfa_totp_minid.time.MockTimeProvider;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-/*@RunWith(SpringRunner.class)
-@SpringBootTest*/
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class ValidatorTest {
+    final String generatedAtSetTime = "397968";
+    final String generatedBeforeSetTime = "352277";
+    final String secret = "HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR";
 
-/*    @Test
-    public void testisCorrectTotp() {
-        String secret = "HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR";
-        int timePeriod = 30;
-        long testTime = 2000000000L;
-        String correctCode = "057504";
+    Validator validator;
 
-        assertTrue(isCorrectTotp(secret, correctCode, testTime));
-        assertTrue(isCorrectTotp(secret, correctCode, testTime - timePeriod));
+    @Before
+    public void setUp() {
+        MockTimeProvider mockTime = new MockTimeProvider();
+        mockTime.setTime(2000000000L);
+        Totp totp = new Totp();
+        validator = new Validator(totp, mockTime);
+    }
 
-    }*/
+    @Test
+    public void shouldValidate() {
+        assertTrue(validator.isCorrectTotp(secret, generatedAtSetTime));
+    }
 
-    private boolean isCorrectTotp(String secret, String userCode, long time) {
-        TimeProvider tp = mock(TimeProvider.class);
-        when(tp.getTime()).thenReturn(time);
+    @Test
+    public void shouldValidateOlderPeriod() {
+        assertTrue(validator.isCorrectTotp(secret, generatedBeforeSetTime));
+    }
 
-        Validator validator = new Validator(new Totp(), tp);
-        return validator.isCorrectTotp(secret, userCode);
+    @Test
+    public void shouldNotApproveRepeat() {
+        Crypto crypto = new Crypto("NA", secret, "123123");
+        assertFalse(validator.validTotp(crypto, "123123"));
+    }
+
+    @Test
+    public void shouldApproveNewCodes() {
+        Crypto crypto = new Crypto("NA", secret, "123123");
+        assertTrue(validator.validTotp(crypto, "397968"));
     }
 }
