@@ -2,6 +2,8 @@ package d32.minid.mfa_totp_minid;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class MfaTotpMinIdApplication {
@@ -10,4 +12,8 @@ public class MfaTotpMinIdApplication {
         SpringApplication.run(MfaTotpMinIdApplication.class, args);
     }
 
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
 }
