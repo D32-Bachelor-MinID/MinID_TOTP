@@ -5,14 +5,22 @@ import d32.minid.mfa_totp_minid.security.SessionHandler;
 import d32.minid.mfa_totp_minid.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.RestTemplate;
 
+@PropertySource("classpath:application.properties")
 @Controller
 public class SettingsController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RestTemplate template;
+    @Value("${rest.api.url.base}")
+    private String url;
     @GetMapping("/settings")
     public String settings(HttpSession session, Model model) {
         SessionHandler sessionHandler = new SessionHandler(session);
@@ -24,9 +32,8 @@ public class SettingsController {
 
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfa = user.getMfa_method();
-        // TODO hent telefonnummer fra KRR api og vis det
-        // temp for testing
-        String phone = "99887766";
+
+        String phone = template.getForEntity(url + "/tlf", String.class).getBody();
 
         mfa = switch (mfa) {
             case "OTC" -> "KODE PÅ SMS (" + phone + ")";
