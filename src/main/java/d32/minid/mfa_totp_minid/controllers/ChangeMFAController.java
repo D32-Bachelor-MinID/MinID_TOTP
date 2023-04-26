@@ -49,8 +49,14 @@ public class ChangeMFAController {
 
 
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
+        if (mfa.equals(user.getMfa_method()))
+            return "redirect:/settings";
+        // Maybe add a check to see if user really want to change mfa method
+        // redirect to a page where user can confirm change
+
         user.setMfa_method(mfa);
         userRepository.save(user);
+
         return "redirect:/settings";
     }
 }

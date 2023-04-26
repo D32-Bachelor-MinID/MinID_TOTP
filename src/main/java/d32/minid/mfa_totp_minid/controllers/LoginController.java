@@ -23,10 +23,11 @@ public class LoginController {
     private DatabindContext session;
 
     @GetMapping("/loginn")
-    public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
+    public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
         SessionHandler sessionHandler = new SessionHandler(session);
         if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
             System.out.println("Logincontroller");
+            model.addAttribute("service", "Digitaliseringsdirektoratet");
             return "loginn";
         }
         return "redirect:/mfa";

@@ -49,7 +49,6 @@
               <a href="/totpRemove" class="btn btn-Normal">
                 <span>Fjern app</span></a>
             </div>
-          </div>
             <div class="fm-RadioButton" th:if="${totp}"  >
               <input id="totp" name="chosen-mfa" th:type="radio" value="TOTP"
                      th:checked="${totp}"/>
@@ -64,9 +63,8 @@
                 </span>
               </a>
             </div>
-
           </div>
-        </div>
+          </div>
         <div class="fm-Controls with-Normal with-Action">
           <button class="btn btn-Action" type="submit" name="SAVEBUTTON_MINPROFIL">
             <span>Lagre</span>
