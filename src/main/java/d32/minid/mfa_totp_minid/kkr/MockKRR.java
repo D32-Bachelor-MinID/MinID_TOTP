@@ -8,7 +8,7 @@ public class MockKRR {
 
     public static String findUser(String pid) {
 
-        users.add(new User("12312312312", new Kontaktinformasjon("123", "12121212")));
+        users.add(new User("12312312333", new Kontaktinformasjon("123", "12121212")));
         users.add(new User("11223312345", new Kontaktinformasjon("123", "11111111")));
         users.add(new User("09123122938", new Kontaktinformasjon("123", "09090909")));
 

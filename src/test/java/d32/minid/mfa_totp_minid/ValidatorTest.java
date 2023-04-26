@@ -1,6 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenservices.DAO.crypto.Crypto;
+import d32.minid.mfa_totp_minid.idportenservices.crypto.Crypto;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.Totp;
 import d32.minid.mfa_totp_minid.idportenservices.utils.security.Validator;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.MockTimeProvider;

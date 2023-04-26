@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idportenservices.DAO.user;
+package d32.minid.mfa_totp_minid.idportenservices.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

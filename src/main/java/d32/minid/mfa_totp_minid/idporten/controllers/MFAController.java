@@ -1,12 +1,12 @@
 package d32.minid.mfa_totp_minid.idporten.controllers;
 
-import d32.minid.mfa_totp_minid.idportenservices.DAO.crypto.Crypto;
+import d32.minid.mfa_totp_minid.idportenservices.crypto.Crypto;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.Totp;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.utils.security.Validator;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.TimeProvider;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.user.User;
+import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;

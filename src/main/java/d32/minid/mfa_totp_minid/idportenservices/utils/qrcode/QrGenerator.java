@@ -7,7 +7,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.DefaultKeyGenerator;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.user.User;
+import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayOutputStream;

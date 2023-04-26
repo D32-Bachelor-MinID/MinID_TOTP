@@ -1,10 +1,10 @@
 package d32.minid.mfa_totp_minid;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.crypto.Crypto;
+import d32.minid.mfa_totp_minid.idportenservices.crypto.Crypto;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.user.User;
+import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idportenservices.DAO.crypto;
+package d32.minid.mfa_totp_minid.idportenservices.crypto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

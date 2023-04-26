@@ -4,7 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.fasterxml.jackson.databind.DatabindContext;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.utils.security.SessionHandler;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.user.User;
+import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
