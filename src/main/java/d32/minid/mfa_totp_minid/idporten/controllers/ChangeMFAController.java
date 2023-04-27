@@ -2,6 +2,7 @@ package d32.minid.mfa_totp_minid.idporten.controllers;
 
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.user.User;
+import d32.minid.mfa_totp_minid.kkr.MockKRR;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ public class ChangeMFAController {
     private UserRepository userRepository;
     @GetMapping("/mfa_options")
     public String changeMFA(HttpSession session,Model model) {
-        String phone = "99887766";
+        String phone = MockKRR.findUser((session.getAttribute("PID").toString()));
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfaMethod = user.getMfa_method();
 

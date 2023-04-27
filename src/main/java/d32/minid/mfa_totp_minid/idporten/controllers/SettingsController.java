@@ -36,7 +36,7 @@ public class SettingsController {
             default -> "None";
         };
 
-        model.addAttribute("unit", "Toro phone - no unit");
+        model.addAttribute("unit", "IPhone 13 - IOS 16.5 Public Beta 3");
         model.addAttribute("mfa", mfa);
         model.addAttribute("phone", phone);
         System.out.println(session.getAttribute("PID"));
