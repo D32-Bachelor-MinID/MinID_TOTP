@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class MFAController {
     @Autowired
@@ -33,7 +35,7 @@ public class MFAController {
     }
     @PostMapping("/mfa")
     public String mfaPost(String otc, HttpSession session, Model model, String mfa, String submit) {
-        if (submit.equals("cancel")) {
+        if (Objects.equals(submit, "cancel")) {
             session.removeAttribute("PID");
             return "redirect:/loginn";
         }
