@@ -39,14 +39,12 @@ public class ChangeMFAController {
         model.addAttribute("phone", phone);
 
 
-        System.out.println("get mfa_options");
         return "mfa_options";
     }
 
     @PostMapping("/mfa_options")
     public String changeMFA(HttpSession session, @RequestParam("chosen-mfa") String mfa) {
 
-        System.out.println("post mfa_options");
 
 
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
