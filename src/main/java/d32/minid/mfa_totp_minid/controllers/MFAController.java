@@ -31,7 +31,11 @@ public class MFAController {
         return "mfa";
     }
     @PostMapping("/mfa")
-    public String mfaPost(String otc, HttpSession session, Model model, String mfa) {
+    public String mfaPost(String otc, HttpSession session, Model model, String mfa, String submit) {
+        if (submit.equals("cancel")) {
+            session.removeAttribute("PID");
+            return "redirect:/loginn";
+        }
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         model.addAttribute("mfa_method", user.getMfa_method());
         if (user.getMfa_method().equals("OTC")) {
