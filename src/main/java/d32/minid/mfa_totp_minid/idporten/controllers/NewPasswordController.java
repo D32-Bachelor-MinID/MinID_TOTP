@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class NewPasswordController {
 
@@ -23,21 +25,27 @@ public class NewPasswordController {
     }
 
     @PostMapping("/newpassword")
-    public String newpasswordPost(String password, String password2, Model model, HttpSession session) {
-
+    public String newpasswordPost(String passwordOld, String password, String password2, Model model, HttpSession session) {
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
-        if (!password.equals(password2)) {
+        if (!BCrypt.verifyer().verify(passwordOld.toCharArray(), user.getPassword()).verified){
+            model.addAttribute("Error", "Incorrect password");
+            return "newpassword";
+        }
+        if (!Objects.equals(password, password2)) {
             model.addAttribute("Error", "Passwords do not match");
-            return "redirect:/newpassword";
+            return "newpassword";
         }
         if (password.length() < 8) {
             model.addAttribute("Error", "Password must be at least 8 characters long");
-            return "redirect:/newpassword";
+            return "newpassword";
         }
         if (BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified){
             model.addAttribute("Error", "New password must be different from old password");
-            return "redirect:/newpassword";
+            return "newpassword";
         }
+
+        user.setPassword(BCrypt.withDefaults().hashToString(12, password.toCharArray()));
+        userRepository.save(user);
         return "redirect:/settings";
     }
 }

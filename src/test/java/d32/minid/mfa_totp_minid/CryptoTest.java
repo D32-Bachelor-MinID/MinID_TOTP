@@ -38,7 +38,7 @@ public class CryptoTest {
 
     @After
     public void finish(){
-        User user = userRepository.findByPid("12312312321");
+        user = userRepository.findByPid("12312312321");
         cryptoRepository.delete(cryptoRepository.findByUuid(user.getUuid()));
         userRepository.delete(user);
     }
