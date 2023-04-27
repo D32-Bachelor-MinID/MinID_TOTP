@@ -18,7 +18,7 @@
 <main>
     <section class="Box">
         <div class="Box_header">
-            <h1 class="Box_header-title with-close-button">Logg inn med:</h1>
+            <h1 class="Box_header-title with-close-button">Fjern Autentikasjonsmetode</h1>
             <span class="Box_header-close">
     			<a href="/mfa_options">
       				<span class="fa fa-close">
@@ -29,30 +29,25 @@
         </div>
 
         <div class="Box_main">
-
-            <form id="totpRemove" method="post" th:action="@{/totpRemove}" autocomplete="off" >
-               <h2 class="Box_main-title">Fjern Autentikasjonsmetode</h2>
-                <h3 class="Box_main-subtitle">Er du sikker på at du vil fjerne valgt metode? Du kan ikke reversere.</h3>
-                <div class="fm-Controls with-Normal with-Action">
-                    <button class="btn btn-Action" type="submit" name="SAVEBUTTON_REMOVEMFA">
-                        <span>Lagre</span>
-                    </button>
-                    <a href="/mfa_options"
-                       class="btn btn-Normal"
-                       id="CANCELBUTTON_MINPROFIL">
-                        <span>Avbryt</span>
-                    </a>
-                </div>
-            </form>
+            <div class="Box_Section">
+                <form id="totpRemove" method="post" th:action="@{/totpRemove}" autocomplete="off" >
+                    <h3>Er du sikker på at du vil fjerne valgt metode? Du kan ikke reversere.</h3>
+                    <div class="fm-Controls with-Normal with-Action">
+                        <button class="btn btn-Action" type="submit" name="SAVEBUTTON_REMOVEMFA">
+                            <span>Lagre</span>
+                        </button>
+                        <a href="/mfa_options" class="btn btn-Normal" id="CANCELBUTTON_MINPROFIL">
+                            <span>Avbryt</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
 </main>
 
-
 <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.13.2.min.js"></script>
-<!-- script type="text/javascript" src="/js/accordion.js?v=1"></--script -->
-<!-- script-- type="text/javascript" src="/js/disabled-links.js?v=1"></script -->
 <script type="text/javascript" src="/js/header.js?v=2"></script>
 <script type="text/javascript" src="/js/handleButtonKeyPress.js?v=1"></script>
 <script type="text/javascript" src="/js/toggleMenues.js?v=1"></script>

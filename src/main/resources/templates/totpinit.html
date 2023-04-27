@@ -16,17 +16,35 @@
 <header th:insert="fragments/general.html :: blankHeader" class="h-Main"></header>
 <main>
   <section class="Box">
-    <div>
-      <h1>Steg 1</h1>
-      <h1>Installer app</h1>
-      <img src="/images/authenticators.png" alt="authenticators" width="100%" height="100%" >
-      <p>Du kan selv velge hvilken applikasjon du vil benytte. Først må du installere applikasjonen på din telefon,
-        for eksempel <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">Google Authenticator</a>
-        <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator</a> eller
-        <a href="https://apps.apple.com/us/app/twilio-authy/id494168017">Twilio Authy</a></p>
-      <a href="/stepTwo">
-        <button id="neste">Neste</button>
-      </a>
+    <div class="Box_header">
+      <h1 class="Box_header-title with-close-button">Steg 1</h1>
+      <span class="Box_header-close">
+        <a href="/mfa_options">
+          <span class="fa fa-close">
+            <span class="visuallyHidden">Avbryt</span>
+          </span>
+        </a>
+      </span>
+    </div>
+    <div class="Box_main">
+      <div class="Box_Section">
+        <h1>Installer app</h1>
+        <img src="/images/authenticators.png" alt="authenticators" width="100%" height="100%" >
+        <p>Du kan selv velge hvilken applikasjon du vil benytte. Først må du installere applikasjonen på din telefon,
+          for eksempel <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">Google Authenticator</a>
+          <a href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458">Microsoft Authenticator</a> eller
+          <a href="https://apps.apple.com/us/app/twilio-authy/id494168017">Twilio Authy</a></p>
+      </div>
+      <div class="fm-Controls with-Normal with-Action">
+        <a id="neste" class="btn btn-Action" href="/stepTwo">
+          <span>Neste</span>
+        </a>
+        <a href="/mfa_options"
+           class="btn btn-Normal"
+           id="CANCELBUTTON_MINPROFIL">
+          <span>Avbryt</span>
+        </a>
+      </div>
     </div>
   </section>
 </main>

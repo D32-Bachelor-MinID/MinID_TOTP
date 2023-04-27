@@ -5,6 +5,7 @@ import d32.minid.mfa_totp_minid.idportenservices.crypto.Crypto;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.user.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +26,9 @@ public class CryptoTest {
     private User user;
     @Before
     public void setUp(){
-        user = userRepository.findByPid("12312312333");
+        user = userRepository.findByPid("12312312321");
         if(user == null){
-            user = new User(randomUUID().toString(), "12312312333", "AKTIVERINGSBREV", "NEW_USER", "LOW", "TOTP",
+            user = new User(randomUUID().toString(), "12312312321", "AKTIVERINGSBREV", "NEW_USER", "LOW", "TOTP",
                     BCrypt.withDefaults().hashToString(12, ("password").toCharArray()),
                     0, 0, 0, 0, 0, 0);
             userRepository.save(user);
@@ -35,9 +36,16 @@ public class CryptoTest {
         }
     }
 
+    @After
+    public void finish(){
+        User user = userRepository.findByPid("12312312321");
+        cryptoRepository.delete(cryptoRepository.findByUuid(user.getUuid()));
+        userRepository.delete(user);
+    }
+
     @Test
     public void previnputTest(){
-        user = userRepository.findByPid("12312312333");
+        user = userRepository.findByPid("12312312321");
         String previnput = cryptoRepository.findByUuid(user.getUuid()).getPrevinput();
         assertEquals(previnput, "112233");
     }
