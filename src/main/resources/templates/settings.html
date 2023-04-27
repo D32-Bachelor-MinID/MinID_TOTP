@@ -18,7 +18,7 @@
     <section class="Box">
         <div class="Box_header">
             <h1 class="Box_header-title with-logo logo-eid-gray">Endre MinID-innstillinger</h1>
-<!--            <div class="Box_header-provider"><img th:src="/images/eid-logo.gif" alt="Logo"></div>-->
+            <!--            <div class="Box_header-provider"><img th:src="/images/eid-logo.gif" alt="Logo"></div>-->
         </div>
         <div class="Box_main">
             <div class="fm-Fields">
@@ -43,17 +43,29 @@
                     <div class="with-icon">
                         <span class="text disabled" th:text="${phone}"></span>
                     </div>
+                    <div th:if="${not changePhone}">
+                        <a th:href="@{/newPhone}">Feil telefonnummer?</a>
+                    </div>
+
                 </div>
                 <div class="fm-Field">
                     <span class="label">Nytt passord:</span>
                     <div class="with-icon">
                         <span class="text">**********</span>
-                          <a href="/newpassword">
+                        <a href="/newpassword">
                             <span class="visuallyHidden">Endre passord</span>
                             <span class="fa fa-pencil"></span>
                         </a>
                     </div>
+
                 </div>
+            </div>
+        </div>
+        <div th:if="${changePhone}">
+            <div class="Box_Section">
+                For å endre telefonnummer må du gå til Kommunikasjon og Reservasjonsregisterets sider.
+
+                Trykk følgende <a target="_blank" rel="noreferrer noopener" href="https://www.norge.no/nb/digital-borgar/oppdater-kontaktinformasjon">link</a>
             </div>
         </div>
         <div class="Box_footer">
@@ -67,5 +79,8 @@
 <script type="text/javascript" src="/js/header.js"></script>
 <script type="text/javascript" src="/js/handleButtonKeyPress.js"></script>
 <script type="text/javascript" src="/js/minid-menu-toggle.js"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
