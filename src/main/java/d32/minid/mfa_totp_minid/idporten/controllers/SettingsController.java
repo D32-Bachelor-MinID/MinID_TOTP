@@ -35,6 +35,8 @@ public class SettingsController {
             case "TOTP" -> "TOTP applikasjon";
             default -> "None";
         };
+
+        model.addAttribute("unit", "Toro phone - no unit");
         model.addAttribute("mfa", mfa);
         model.addAttribute("phone", phone);
         System.out.println(session.getAttribute("PID"));
