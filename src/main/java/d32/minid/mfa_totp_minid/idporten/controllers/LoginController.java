@@ -20,12 +20,11 @@ import java.util.Objects;
 public class LoginController {
     @Autowired
     private UserRepository userRepository;
-    private DatabindContext session;
 
     @GetMapping("/loginn")
     public String login(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
         SessionHandler sessionHandler = new SessionHandler(session);
-        if(!sessionHandler.exists(session) || !sessionHandler.hasAttribute(session)) {
+        if(sessionHandler.getSession().getAttribute("PID") == null) {
             System.out.println("Logincontroller");
             model.addAttribute("service", "Digitaliseringsdirektoratet");
             return "loginn";

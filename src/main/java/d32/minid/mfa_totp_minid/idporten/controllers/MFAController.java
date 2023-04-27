@@ -7,6 +7,7 @@ import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.utils.security.Validator;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.TimeProvider;
 import d32.minid.mfa_totp_minid.idportenservices.user.User;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -31,7 +32,11 @@ public class MFAController {
         return "mfa";
     }
     @PostMapping("/mfa")
-    public String mfaPost(String otc, HttpSession session, Model model, String mfa) {
+    public String mfaPost(String otc, HttpSession session, Model model, String mfa, String submit) {
+        if (submit.equals("cancel")) {
+            session.removeAttribute("PID");
+            return "redirect:/loginn";
+        }
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         model.addAttribute("mfa_method", user.getMfa_method());
         if (user.getMfa_method().equals("OTC")) {
