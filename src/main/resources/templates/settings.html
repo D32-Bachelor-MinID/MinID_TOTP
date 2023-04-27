@@ -27,8 +27,10 @@
                     <div class="with-icon">
                         <span class="text">
                             <label th:text="${mfa}"></label>
-                            <img th:if="${mfa} == 'TOTP applikasjon'" th:src="@{/images/tooltip.png}" alt="totp"
-                                 th:title="'&lt;div&gt;' + ${unit} + '&lt;/div&gt;'" data-html="true"/>
+                            <img th:if="${mfa} == 'TOTP applikasjon'" th:src="@{/images/tooltip.png}"
+                                 alt="Totp info box"
+                                 width="16" height="16"
+                                 th:title="${unit}" data-html="true" />
                         </span>
                         <a th:href="@{/mfa_options}">
                             <span class="visuallyHidden">Endre innloggingsmetode</span>

@@ -38,7 +38,7 @@ public class LoginController {
             session.setAttribute("PID", pid);
             return "redirect:/mfa";
         }
-        session.invalidate();
+
         model.addAttribute("loginError", "Invalid username or password");
         return "loginn";
     }
