@@ -3,7 +3,7 @@ package d32.minid.mfa_totp_minid.idportenservices.utils.security;
 import jakarta.servlet.http.HttpSession;
 
 public class SessionHandler {
-private final HttpSession session;
+    private final HttpSession session;
     public SessionHandler(HttpSession session) {
         this.session = session;
     }
