@@ -42,10 +42,27 @@ public class MFAController {
             return "redirect:/loginn";
         }
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
+        if (user.getQuarantine_expiry_ms() > System.currentTimeMillis()) {
+            model.addAttribute("Error", "Account is quarantined");
+            return "mfa";
+        }
         model.addAttribute("mfa_method", user.getMfa_method());
         if (user.getMfa_method().equals("OTC")) {
-            if (otc.equals("otc12")) return "redirect:/settings";
+            if (otc.equals("otc12")) {
+                user.setLast_login_ms(System.currentTimeMillis());
+                user.setMfa_error_counter(0);
+                userRepository.save(user);
+                return "redirect:/settings";
+            }
             model.addAttribute("otcError", "Invalid OTC");
+            user.setMfa_error_counter(user.getMfa_error_counter() + 1);
+            if (user.getMfa_error_counter() >= 3) {
+                user.setQuarantine_expiry_ms(System.currentTimeMillis() + 3600000);
+                model.addAttribute("Error", "Account is quarantined");
+                userRepository.save(user);
+                model.addAttribute("user", user);
+                return "mfa";
+            }
         } else if (user.getMfa_method().equals("TOTP")) {
             Validator validator = new Validator(new Totp(), new TimeProvider());
             Crypto crypto = cryptoRepository.findByUuid(user.getUuid());
@@ -57,7 +74,14 @@ public class MFAController {
                 return "redirect:/settings";
             }
             model.addAttribute("totpError", "Invalid TOTP");
+            user.setMfa_error_counter(user.getMfa_error_counter() + 1);
+            if (user.getMfa_error_counter() >= 3) {
+                user.setQuarantine_expiry_ms(System.currentTimeMillis() + 3600000);
+                model.addAttribute("quarantineError", "Account is quarantined");
+            }
         }
+        model.addAttribute("user", user);
+        userRepository.save(user);
         model.addAttribute("Error", "Invalid " + mfa);
         return "mfa";
     }
