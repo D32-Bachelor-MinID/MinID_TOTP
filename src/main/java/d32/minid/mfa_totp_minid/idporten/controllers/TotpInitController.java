@@ -11,6 +11,8 @@ import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.TimePro
 import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,10 @@ public class TotpInitController {
     private CryptoRepository cryptoRepository;
 
     @GetMapping("/totpInit")
-    public String totpinit() {
+    public String totpinit(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session) {
+        if (session.getAttribute("PID") == null) {
+            return "redirect:/loginn";
+        }
         return "totpinit";
     }
 

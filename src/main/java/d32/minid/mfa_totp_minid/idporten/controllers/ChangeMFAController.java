@@ -5,6 +5,8 @@ import d32.minid.mfa_totp_minid.idportenservices.user.User;
 import d32.minid.mfa_totp_minid.kkr.MockKRR;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,10 @@ public class ChangeMFAController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/mfa_options")
-    public String changeMFA(HttpSession session,Model model) {
+    public String changeMFA(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
+        if (session.getAttribute("PID") == null) {
+            return "redirect:/loginn";
+        }
         String phone = MockKRR.findUser((session.getAttribute("PID").toString()));
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfaMethod = user.getMfa_method();
