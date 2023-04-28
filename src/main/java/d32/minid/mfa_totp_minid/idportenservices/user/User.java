@@ -20,15 +20,15 @@ public class User {
     private String password;
     private Integer password_error_counter;
     private Integer mfa_error_counter;
-    private Integer quarantine_expiry_ms;
-    private Integer profile_created_ms;
-    private Integer profile_updated_ms;
-    private Integer last_login_ms;
+    private Long quarantine_expiry_ms;
+    private Long profile_created_ms;
+    private Long profile_updated_ms;
+    private Long last_login_ms;
 
     public User() {
     }
 
-    public User(String uuid, String pid, String source, String user_state, String security_level, String mfa_method, String password, Integer password_error_counter, Integer mfa_error_counter, Integer quarantine_expiry_ms, Integer profile_created_ms, Integer profile_updated_ms, Integer last_login_ms) {
+    public User(String uuid, String pid, String source, String user_state, String security_level, String mfa_method, String password, Integer password_error_counter, Integer mfa_error_counter, Long quarantine_expiry_ms, Long profile_created_ms, Long profile_updated_ms, Long last_login_ms) {
         this.uuid = uuid;
         this.pid = pid;
         this.source = source;
@@ -119,35 +119,35 @@ public class User {
         this.mfa_error_counter = mfa_error_counter;
     }
 
-    public Integer getQuarantine_expiry_ms() {
+    public Long getQuarantine_expiry_ms() {
         return quarantine_expiry_ms;
     }
 
-    public void setQuarantine_expiry_ms(Integer quarantine_expiry_ms) {
+    public void setQuarantine_expiry_ms(Long quarantine_expiry_ms) {
         this.quarantine_expiry_ms = quarantine_expiry_ms;
     }
 
-    public Integer getProfile_created_ms() {
+    public Long getProfile_created_ms() {
         return profile_created_ms;
     }
 
-    public void setProfile_created_ms(Integer profile_created_ms) {
+    public void setProfile_created_ms(Long profile_created_ms) {
         this.profile_created_ms = profile_created_ms;
     }
 
-    public Integer getProfile_updated_ms() {
+    public Long getProfile_updated_ms() {
         return profile_updated_ms;
     }
 
-    public void setProfile_updated_ms(Integer profile_updated_ms) {
+    public void setProfile_updated_ms(Long profile_updated_ms) {
         this.profile_updated_ms = profile_updated_ms;
     }
 
-    public Integer getLast_login_ms() {
+    public Long getLast_login_ms() {
         return last_login_ms;
     }
 
-    public void setLast_login_ms(Integer last_login_ms) {
+    public void setLast_login_ms(Long last_login_ms) {
         this.last_login_ms = last_login_ms;
     }
 
