@@ -20,7 +20,10 @@ public class NewPasswordController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/newpassword")
-    public String newpassword(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient) {
+    public String newpassword(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession sess) {
+        if (sess.getAttribute("PID") == null) {
+            return "redirect:/loginn";
+        }
         return "newpassword";
     }
 
