@@ -74,11 +74,11 @@
         <div class="fm-Progress_Dot active"></div>
         <div class="fm-Progress_Dot"></div>
       </div>
-        <div id="totpError" class="notification notification-error with-Icon icon-error"  th:if="${totpError}">
-          <span><strong>Ugyldig kode:</strong> Koden består av 6 siffer</span>
-        </div>
+      <div id="totpError" class="notification notification-error with-Icon icon-error"  th:if="${totpError}">
+        <span><strong>Ugyldig kode:</strong> Koden består av 6 siffer</span>
+      </div>
       <div id="otcError" class="notification notification-error with-Icon icon-error"  th:if="${otcError}">
-      <span><strong>Ugyldig kode:</strong> Koden består av 5 tegn, og inneholder både tall og bokstaver</span>
+        <span><strong>Ugyldig kode:</strong> Koden består av 5 tegn, og inneholder både tall og bokstaver</span>
       </div>
       <form th:if="${mfa_method == 'OTC'}" th:insert="fragments/forms.html :: mfa_text_OTC" id="mfa_text_OTC" class="mfa"></form>
       <form th:if="${mfa_method == 'OTC'}" th:insert="fragments/forms.html :: mfa_input_OTC" id="mfa_input_OTC" class="mfa" th:action="@{/mfa}" method="post"></form>

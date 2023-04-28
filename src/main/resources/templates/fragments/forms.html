@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
-  <form th:fragment="userCredentials">
-    <fieldset>
-      <div class="fm-Fields">
-        <div class="fm-Field">
-          <label for="pid">Fødselsnummer</label>
-          <input type="tel" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
-                 autofocus="autofocus" maxlength="11"/>
-        </div>
-        <div class="fm-Field">
-          <label for="password">Passord</label>
-          <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
-        </div>
-        <div class="fm-form_link with-Link">
-          <a href="">
-            <span>Glemt passord</span>
-          </a>
-        </div>
+<form th:fragment="userCredentials">
+  <fieldset>
+    <div class="fm-Fields">
+      <div class="fm-Field">
+        <label for="pid">Fødselsnummer</label>
+        <input type="tel" id="pid" name="pid" placeholder="Vennligst fyll inn fødselsnummeret ditt (11 siffer)"
+               autofocus="autofocus" maxlength="11"/>
       </div>
-    </fieldset>
-    <div class="fm-Controls with-Normal with-Action">
-      <button id="next" class="btn btn-Action" name="next" type="submit">
-        <span>Neste</span>
-      </button>
-      <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
-        <span>Avbryt</span>
-      </button>
+      <div class="fm-Field">
+        <label for="password">Passord</label>
+        <input type="password" id="password" name="password" placeholder="Skriv inn passordet ditt" maxlength="100"/>
+      </div>
+      <div class="fm-form_link with-Link">
+        <a href="">
+          <span>Glemt passord</span>
+        </a>
+      </div>
     </div>
-  </form>
-  <form th:fragment="mfa_text_OTC">
-    <fieldset>
-      <div class="notification with-Icon icon-sms">
-        <p> Du vil motta en engangskode på SMS fra Digdir. </p>
-      </div>
-      <div class="highlight">
-<!--        <strong th:text="Sist innlogget':' ${user.last_login_ms}" />-->
-      </div>
-    </fieldset>
-  </form>
-  <form th:fragment="mfa_text_TOTP">
-    <fieldset>
-      <div class="notification with-Icon icon-sms">
-        <p> Du vil motta en engangskode fra din TOTP app. </p>
-      </div>
-      <div class="highlight">
-<!--        <strong th:text="Sist innlogget':' ${user.last_login_ms}" />-->
-      </div>
-    </fieldset>
-  </form>
+  </fieldset>
+  <div class="fm-Controls with-Normal with-Action">
+    <button id="next" class="btn btn-Action" name="next" type="submit">
+      <span>Neste</span>
+    </button>
+    <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+      <span>Avbryt</span>
+    </button>
+  </div>
+</form>
+<form th:fragment="mfa_text_OTC">
+  <fieldset>
+    <div class="notification with-Icon icon-sms">
+      <p> Du vil motta en engangskode på SMS fra Digdir. </p>
+    </div>
+    <div class="highlight">
+      <!--        <strong th:text="Sist innlogget':' ${user.last_login_ms}" />-->
+    </div>
+  </fieldset>
+</form>
+<form th:fragment="mfa_text_TOTP">
+  <fieldset>
+    <div class="notification with-Icon icon-sms">
+      <p> Du vil motta en engangskode fra din TOTP app. </p>
+    </div>
+    <div class="highlight">
+      <!--        <strong th:text="Sist innlogget':' ${user.last_login_ms}" />-->
+    </div>
+  </fieldset>
+</form>
 <form th:fragment="mfa_input_OTC">
   <fieldset>
     <div class="fm-Fields">

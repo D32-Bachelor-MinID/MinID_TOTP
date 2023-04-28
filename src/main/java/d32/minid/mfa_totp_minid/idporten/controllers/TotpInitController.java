@@ -41,18 +41,15 @@ public class TotpInitController {
     }
     @PostMapping ("/stepTwo")
     public String stepTwoPost(String totpinput, HttpSession session, Model model) {
-        System.out.println("POST to stepTwo");
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         Crypto crypto = cryptoRepository.findByUuid(user.getUuid());
         Validator validator = new Validator(new Totp(), new TimeProvider());
         if (validator.validTotp(crypto, totpinput)) {
-            System.out.println("TOTP valid, saving user");
             user.setMfa_method("TOTP");
             userRepository.save(user);
             return "redirect:/settings";
         }
         model.addAttribute("Error", "Invalid TOTP");
-        System.out.println("TOTP invalid, returning to totpReg");
         QrData qr = new QrData("totp", user.getPid(), crypto.getSecret(), "MinID", "SHA1", 6, 30);
         QrGenerator qrGenerator = new QrGenerator();
         model.addAttribute("dataUri", qrGenerator.getUriForImage(qr, "image/png"));
