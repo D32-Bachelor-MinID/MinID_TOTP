@@ -70,6 +70,9 @@
                 </ul>
             </nav>
         </div>
+        <div id="quarantineError" class="notification notification-error with-Icon icon-error" th:if="${quarantineError}">
+            <span><strong>Feil:</strong> Du er i karantene. Du kan ikke logge inn med MinID.</span>
+        </div>
         <p th:if="${loginError}" class="error">Feil brukernavn eller passord</p>
         <div class="Box_main" id="minidwrapper">
             <div class="fm-Progress_Container">

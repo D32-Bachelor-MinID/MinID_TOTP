@@ -74,6 +74,9 @@
         <div class="fm-Progress_Dot active"></div>
         <div class="fm-Progress_Dot"></div>
       </div>
+      <div id="quarantineError" class="notification notification-error with-Icon icon-error" th:if="${quarantineError}">
+        <span><strong>Feil:</strong> Du er i karantene. Du kan ikke logge inn med MinID.</span>
+      </div>
       <div id="totpError" class="notification notification-error with-Icon icon-error"  th:if="${totpError}">
         <span><strong>Ugyldig kode:</strong> Koden består av 6 siffer</span>
       </div>
