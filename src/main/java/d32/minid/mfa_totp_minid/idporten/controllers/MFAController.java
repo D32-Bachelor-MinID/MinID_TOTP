@@ -5,6 +5,7 @@ import d32.minid.mfa_totp_minid.idportenservices.utils.totp.Totp;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.CryptoRepository;
 import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
 import d32.minid.mfa_totp_minid.idportenservices.utils.security.Validator;
+import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.ITimeProvider;
 import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.TimeProvider;
 import d32.minid.mfa_totp_minid.idportenservices.user.User;
 
@@ -30,6 +31,7 @@ public class MFAController {
     public String mfa(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
         User user = userRepository.findByPid((String) session.getAttribute("PID"));
         String mfa_method = user.getMfa_method();
+        model.addAttribute("user", user);
         model.addAttribute("mfa_method", mfa_method);
         return "mfa";
     }
@@ -50,6 +52,8 @@ public class MFAController {
             if(validator.validTotp(crypto, mfa)) {
                 crypto.setPrevinput(mfa);
                 cryptoRepository.save(crypto);
+                user.setLast_login_ms(System.currentTimeMillis());
+                userRepository.save(user);
                 return "redirect:/settings";
             }
             model.addAttribute("totpError", "Invalid TOTP");

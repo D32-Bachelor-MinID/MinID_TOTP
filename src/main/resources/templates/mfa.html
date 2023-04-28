@@ -80,10 +80,64 @@
       <div id="otcError" class="notification notification-error with-Icon icon-error"  th:if="${otcError}">
         <span><strong>Ugyldig kode:</strong> Koden består av 5 tegn, og inneholder både tall og bokstaver</span>
       </div>
-      <form th:if="${mfa_method == 'OTC'}" th:insert="fragments/forms.html :: mfa_text_OTC" id="mfa_text_OTC" class="mfa"></form>
-      <form th:if="${mfa_method == 'OTC'}" th:insert="fragments/forms.html :: mfa_input_OTC" id="mfa_input_OTC" class="mfa" th:action="@{/mfa}" method="post"></form>
-      <form th:if="${mfa_method == 'TOTP'}" th:insert="fragments/forms.html :: mfa_text_TOTP" id="mfa_text_TOTP" class="mfa"></form>
-      <form th:if="${mfa_method == 'TOTP'}" th:insert="fragments/forms.html :: mfa_input_TOTP" id="mfa_input_TOTP" class="mfa" th:action="@{/mfa}" method="post"></form>
+      <form th:if="${mfa_method == 'OTC'}">
+        <fieldset>
+          <div class="notification with-Icon icon-sms">
+            <p> Du vil motta en engangskode på SMS fra Digdir. </p>
+            <div class="highlight">
+              <strong>Sist innlogget: <strong th:text="${#calendars.format(user.last_login_ms, 'dd.MM.yyyy HH:mm')}"/></strong>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      <form th:if="${mfa_method == 'TOTP'}">
+        <fieldset>
+          <div class="notification with-Icon icon-sms">
+            <p> Du vil nå motta en engangskode fra din TOTP app. </p>
+            <div class="highlight">
+                <strong>Sist innlogget: <strong th:text="${#calendars.format(user.last_login_ms, 'dd.MM.yyyy HH:mm')}"/></strong>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      <form th:if="${mfa_method == 'OTC'}" class="mfa" th:action="@{/mfa}" method="post">
+        <fieldset>
+          <div class="fm-Fields">
+            <div class="fm-Field">
+              <label for="otc">KODE FRA SMS</label>
+              <input type="text" id="otc" name="otc" placeholder="(5 tegn)"
+                     autofocus="autofocus" maxlength="5"/>
+            </div>
+          </div>
+          <div class="fm-Controls with-Normal with-Action">
+            <button id="next_otc" class="btn btn-Action" name="next" type="submit">
+              <span>Neste</span>
+            </button>
+            <button id="cancel_otc" class="btn btn-Normal" name="cancel" type="submit">
+              <span>Avbryt</span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
+      <form th:if="${mfa_method == 'TOTP'}" class="mfa" th:action="@{/mfa}" method="post">
+        <fieldset>
+          <div class="fm-Fields">
+            <div class="fm-Field">
+              <label for="mfa">KODE FRA TOTP APP</label>
+              <input type="tel" id="mfa" name="mfa" placeholder="6 siffer"
+                     autofocus="autofocus" maxlength="6"/>
+            </div>
+          </div>
+          <div class="fm-Controls with-Normal with-Action">
+            <button id="next_totp" class="btn btn-Action" name="next" type="submit">
+              <span>Neste</span>
+            </button>
+            <button id="cancel_totp" class="btn btn-Normal" name="submit" value="cancel" type="submit">
+              <span>Avbryt</span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
     </div>
   </section>
 </main>
