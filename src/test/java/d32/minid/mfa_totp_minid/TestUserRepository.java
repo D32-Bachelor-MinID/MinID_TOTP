@@ -33,7 +33,7 @@ public class TestUserRepository {
         }
         String password = "password";
         String bcryptHashString = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        User user1 = new User(randomUUID().toString(), "09123122938", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", bcryptHashString, 0, 0, 0, 0, 0, 0);
+        User user1 = new User(randomUUID().toString(), "09123122938", "AKTIVERINGSBREV", "NEW_USER", "LOW", "OTC", bcryptHashString, 0, 0, 0L, 0L, 0L, 0L);
         userRepository.save(user1);
 
     }
