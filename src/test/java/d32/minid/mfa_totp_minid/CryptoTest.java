@@ -30,7 +30,7 @@ public class CryptoTest {
         if(user == null){
             user = new User(randomUUID().toString(), "12312312321", "AKTIVERINGSBREV", "NEW_USER", "LOW", "TOTP",
                     BCrypt.withDefaults().hashToString(12, ("password").toCharArray()),
-                    0, 0, 0, 0, 0, 0);
+                    0, 0, 0L, 0L, 0L, 0L);
             userRepository.save(user);
             cryptoRepository.save(new Crypto(user.getUuid(), "HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR", "112233"));
         }
