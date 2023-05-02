@@ -1,6 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenservices.utils.totp.DefaultKeyGenerator;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp.DefaultKeyGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
