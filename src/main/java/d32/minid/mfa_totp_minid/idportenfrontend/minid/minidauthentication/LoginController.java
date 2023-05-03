@@ -1,9 +1,9 @@
 package d32.minid.mfa_totp_minid.idportenfrontend.minid.minidauthentication;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import d32.minid.mfa_totp_minid.idportenservices.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.security.SessionHandler;
-import d32.minid.mfa_totp_minid.idportenservices.minidprofil.User;
+import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.UserRepository;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security.SessionHandler;
+import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;

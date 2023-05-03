@@ -1,6 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.security.SessionHandler;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security.SessionHandler;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpSession;
