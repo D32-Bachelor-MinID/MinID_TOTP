@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp;
+package d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp;
 
 
 public interface KeyGenerator {

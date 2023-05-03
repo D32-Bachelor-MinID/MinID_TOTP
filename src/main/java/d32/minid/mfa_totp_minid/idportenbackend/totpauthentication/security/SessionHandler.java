@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idportenservices.totpauthentication.security;
+package d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -1,8 +1,8 @@
-package d32.minid.mfa_totp_minid.idportenservices.totpauthentication.security;
+package d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security;
 
-import d32.minid.mfa_totp_minid.idportenservices.minidprofil.Crypto;
-import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp.Totp;
-import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp.timeprovider.ITimeProvider;
+import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.Crypto;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp.Totp;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp.timeprovider.ITimeProvider;
 
 public class Validator {
 

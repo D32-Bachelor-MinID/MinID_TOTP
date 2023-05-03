@@ -1,6 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp.timeprovider.TimeProvider;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp.timeprovider.TimeProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

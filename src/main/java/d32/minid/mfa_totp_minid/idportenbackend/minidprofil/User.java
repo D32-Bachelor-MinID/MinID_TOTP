@@ -1,11 +1,8 @@
-package d32.minid.mfa_totp_minid.idportenservices.minidprofil;
+package d32.minid.mfa_totp_minid.idportenbackend.minidprofil;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "user")
