@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idporten.controllers;
+package d32.minid.mfa_totp_minid.idportenfrontend.minid.minidauthentication;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

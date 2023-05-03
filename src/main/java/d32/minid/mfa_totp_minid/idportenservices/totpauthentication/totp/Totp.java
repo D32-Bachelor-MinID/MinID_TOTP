@@ -1,4 +1,4 @@
-package d32.minid.mfa_totp_minid.idportenservices.utils.totp;
+package d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp;
 
 import org.apache.commons.codec.binary.Base32;
 
