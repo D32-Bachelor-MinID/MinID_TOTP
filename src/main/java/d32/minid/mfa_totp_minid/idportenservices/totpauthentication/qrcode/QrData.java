@@ -1,6 +1,5 @@
-package d32.minid.mfa_totp_minid.idportenservices.utils.qrcode;
+package d32.minid.mfa_totp_minid.idportenservices.totpauthentication.qrcode;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 

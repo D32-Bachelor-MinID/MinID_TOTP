@@ -1,9 +1,9 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenservices.crypto.Crypto;
-import d32.minid.mfa_totp_minid.idportenservices.utils.totp.Totp;
-import d32.minid.mfa_totp_minid.idportenservices.utils.security.Validator;
-import d32.minid.mfa_totp_minid.idportenservices.utils.totp.timeprovider.MockTimeProvider;
+import d32.minid.mfa_totp_minid.idportenservices.minidprofil.Crypto;
+import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp.Totp;
+import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.security.Validator;
+import d32.minid.mfa_totp_minid.idportenservices.totpauthentication.totp.timeprovider.MockTimeProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
