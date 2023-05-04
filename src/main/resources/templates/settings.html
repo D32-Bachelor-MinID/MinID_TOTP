@@ -18,7 +18,6 @@
     <section class="Box">
         <div class="Box_header">
             <h1 class="Box_header-title with-logo logo-eid-gray">Endre MinID-innstillinger</h1>
-            <!--            <div class="Box_header-provider"><img th:src="/images/eid-logo.gif" alt="Logo"></div>-->
         </div>
         <div class="Box_main">
             <div class="fm-Fields">
@@ -40,8 +39,8 @@
                 </div>
                 <div class="fm-Field">
                     <span class="label">Mobilnummer:</span>
-                    <div class="with-icon">
-                        <span class="text disabled" th:text="${phone}"></span>
+                    <div>
+                        <span class="text" th:text="${phone}"></span>
                     </div>
                     <div th:if="${not changePhone}">
                         <a th:href="@{/newPhone}">Feil telefonnummer?</a>
