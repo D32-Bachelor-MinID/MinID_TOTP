@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class TotpRemoveController {
+public class UnregisterMFAController {
     @Autowired
     Utils utils;
 
-    @GetMapping("/totpRemove")
+    @GetMapping("/unregistermfa")
     public String totpRemove(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session){
         if (!utils.sessionContainsPid(session)) {
             return "redirect:/loginn";
         }
-        return "totpRemove";
+        return "unregistermfa";
     }
-    @PostMapping("/totpRemove")
+    @PostMapping("/unregistermfa")
     public String totpRemovePost(HttpSession session) {
         utils.updateMfaMethod(session, "OTC");
-        return "redirect:/mfa_options";
+        return "redirect:/settings";
     }
 }
