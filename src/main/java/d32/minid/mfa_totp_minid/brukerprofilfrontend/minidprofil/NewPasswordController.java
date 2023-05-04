@@ -1,8 +1,7 @@
 package d32.minid.mfa_totp_minid.brukerprofilfrontend.minidprofil;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.User;
+import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security.Validator;
+import d32.minid.mfa_totp_minid.idportenbackend.utils.Utils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -18,10 +17,10 @@ import java.util.Objects;
 public class NewPasswordController {
 
     @Autowired
-    private UserRepository userRepository;
+    Utils utils;
     @GetMapping("/newpassword")
     public String newpassword(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession sess) {
-        if (sess.getAttribute("PID") == null) {
+        if (!utils.sessionContainsPid(sess)) {
             return "redirect:/loginn";
         }
         return "newpassword";
@@ -29,8 +28,8 @@ public class NewPasswordController {
 
     @PostMapping("/newpassword")
     public String newpasswordPost(String passwordOld, String password, String password2, Model model, HttpSession session) {
-        User user = userRepository.findByPid((String) session.getAttribute("PID"));
-        if (!BCrypt.verifyer().verify(passwordOld.toCharArray(), user.getPassword()).verified){
+        Validator validator = new Validator();
+        if (!validator.validPassword(utils.getUser(session), passwordOld)){
             model.addAttribute("Error", "Incorrect password");
             return "newpassword";
         }
@@ -42,13 +41,11 @@ public class NewPasswordController {
             model.addAttribute("Error", "Password must be at least 8 characters long");
             return "newpassword";
         }
-        if (BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified){
+        if (validator.validPassword(utils.getUser(session), password2)){
             model.addAttribute("Error", "New password must be different from old password");
             return "newpassword";
         }
-
-        user.setPassword(BCrypt.withDefaults().hashToString(12, password.toCharArray()));
-        userRepository.save(user);
+        utils.updatePassword(session, password);
         return "redirect:/settings";
     }
 }

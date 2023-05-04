@@ -1,9 +1,6 @@
 package d32.minid.mfa_totp_minid.brukerprofilfrontend.minidprofil;
 
-import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.security.SessionHandler;
-import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.User;
-import d32.minid.mfa_totp_minid.kkr.MockKRR;
+import d32.minid.mfa_totp_minid.idportenbackend.utils.Utils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -15,25 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SettingsController {
     @Autowired
-    UserRepository userRepository;
-    SessionHandler sessionHandler;
+    Utils utils;
+
     @GetMapping("/settings")
     public String settings(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session, Model model) {
 
-        this.sessionHandler = new SessionHandler(session);
-
-        if (session.getAttribute("PID") == null) {
+        if (!utils.sessionContainsPid(session)) {
             session.invalidate();
             return "redirect:/";
         }
 
-        String pid = (String) session.getAttribute("PID");
-        User user = userRepository.findByPid(pid);
-        String mfa = user.getMfa_method();
-        String phone = MockKRR.findUser(pid);
-
-        mfa = switch (mfa) {
-            case "OTC" -> "KODE PÅ SMS (" + phone + ")";
+        String mfa = switch (utils.userMfaMethod(session)) {
+            case "OTC" -> "KODE PÅ SMS (" + utils.userPhone(session) + ")";
             case "APP" -> "MinID-app";
             case "TOTP" -> "TOTP applikasjon";
             default -> "None";
@@ -42,7 +32,7 @@ public class SettingsController {
         model.addAttribute("changePhone", false);
         model.addAttribute("unit", "IPhone 13 - IOS 16.5 Public Beta 3");
         model.addAttribute("mfa", mfa);
-        model.addAttribute("phone", phone);
+        model.addAttribute("phone", utils.userPhone(session));
         return "settings";
     }
 
@@ -52,18 +42,13 @@ public class SettingsController {
     @GetMapping("newPhone")
     public String newPhone(HttpSession session, Model model) {
 
-        if (session.getAttribute("PID") == null) {
+        if (!utils.sessionContainsPid(session)) {
             session.invalidate();
             return "redirect:/";
         }
 
-        String pid = (String) session.getAttribute("PID");
-        User user = userRepository.findByPid(pid);
-        String mfa = user.getMfa_method();
-        String phone = MockKRR.findUser(pid);
-
-        mfa = switch (mfa) {
-            case "OTC" -> "KODE PÅ SMS (" + phone + ")";
+        String mfa = switch (utils.userMfaMethod(session)) {
+            case "OTC" -> "KODE PÅ SMS (" + utils.userPhone(session) + ")";
             case "APP" -> "MinID-app";
             case "TOTP" -> "TOTP applikasjon";
             default -> "None";
@@ -72,7 +57,7 @@ public class SettingsController {
         model.addAttribute("changePhone", true);
         model.addAttribute("unit", "IPhone 13 - IOS 16.5 Public Beta 3");
         model.addAttribute("mfa", mfa);
-        model.addAttribute("phone", phone);
+        model.addAttribute("phone", utils.userPhone(session));
         return "settings";
     }
 }

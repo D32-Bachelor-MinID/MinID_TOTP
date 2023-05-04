@@ -1,7 +1,6 @@
 package d32.minid.mfa_totp_minid.brukerprofilfrontend.minidprofil;
 
-import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.User;
+import d32.minid.mfa_totp_minid.idportenbackend.utils.Utils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -13,19 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class TotpRemoveController {
     @Autowired
-    private UserRepository userRepository;
+    Utils utils;
 
     @GetMapping("/totpRemove")
     public String totpRemove(@RegisteredOAuth2AuthorizedClient("idporten") OAuth2AuthorizedClient authorizedClient, HttpSession session){
-        if (session.getAttribute("PID") == null) {
+        if (!utils.sessionContainsPid(session)) {
             return "redirect:/loginn";
         }
         return "totpRemove";
     }
     @PostMapping("/totpRemove")
     public String totpRemovePost(HttpSession session) {
-        User user = userRepository.findByPid((String) session.getAttribute("PID"));
-        user.setMfa_method("OTC");
+        utils.updateMfaMethod(session, "OTC");
         return "redirect:/mfa_options";
     }
 }
