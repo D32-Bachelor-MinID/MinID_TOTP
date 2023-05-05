@@ -34,7 +34,4 @@ public class Validator {
         return totp.runTOTP(secret, timer.getTime()).equals(userCode) ||
                 totp.runTOTP(secret, timer.getTime() - timePeriod).equals(userCode);
     }
-    public boolean validPassword(User user, String password){
-        return BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified;
-    }
 }

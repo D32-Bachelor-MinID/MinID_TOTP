@@ -40,7 +40,7 @@ public class Utils {
     public boolean loginSuccess(String pid, String password) {
         User user = userRepository.findByPid(pid);
         assert user != null;
-        if(validator.validPassword(user, password)) {
+        if(validPassword(user, password)) {
             user.setPassword_error_counter(0);
             userRepository.save(user);
             System.out.println("Login success");
@@ -139,4 +139,16 @@ public class Utils {
         QrGenerator qrGenerator = new QrGenerator();
         return qrGenerator.getUriForImage(qrData, "image/png");
     }
+
+    public boolean validPassword(User user, String password){
+        return BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified;
+    }
+
+    public boolean validPassword(HttpSession session, String password){
+        User user = getUser(session);
+        return validPassword(user, password);
+    }
+
+
+
 }

@@ -29,7 +29,7 @@ public class NewPasswordController {
     @PostMapping("/newpassword")
     public String newpasswordPost(String passwordOld, String password, String password2, Model model, HttpSession session) {
         Validator validator = new Validator();
-        if (!validator.validPassword(utils.getUser(session), passwordOld)){
+        if (!utils.validPassword(session, passwordOld) ){
             model.addAttribute("Error", "Incorrect password");
             return "newpassword";
         }
@@ -41,7 +41,7 @@ public class NewPasswordController {
             model.addAttribute("Error", "Password must be at least 8 characters long");
             return "newpassword";
         }
-        if (validator.validPassword(utils.getUser(session), password2)){
+        if (utils.validPassword(session, password2)){
             model.addAttribute("Error", "New password must be different from old password");
             return "newpassword";
         }
