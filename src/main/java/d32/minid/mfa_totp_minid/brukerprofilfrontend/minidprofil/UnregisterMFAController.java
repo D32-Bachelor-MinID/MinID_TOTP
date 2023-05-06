@@ -24,6 +24,7 @@ public class UnregisterMFAController {
     @PostMapping("/unregistermfa")
     public String totpRemovePost(HttpSession session) {
         utils.updateMfaMethod(session, "OTC");
+        utils.removeCrypto(session);
         return "redirect:/settings";
     }
 }
