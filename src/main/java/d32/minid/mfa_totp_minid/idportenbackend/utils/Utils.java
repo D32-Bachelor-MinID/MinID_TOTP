@@ -148,7 +148,20 @@ public class Utils {
         User user = getUser(session);
         return validPassword(user, password);
     }
-
+    public String getCrypto(HttpSession session) {
+        User user = getUser(session);
+        assert user != null;
+        Crypto crypto = cryptoRepository.findByUuid(user.getUuid());
+        assert crypto != null;
+        return crypto.getSecret();
+    }
+    public void removeCrypto(HttpSession session) {
+        User user = getUser(session);
+        assert user != null;
+        Crypto crypto = cryptoRepository.findByUuid(user.getUuid());
+        assert crypto != null;
+        cryptoRepository.delete(crypto);
+    }
 
 
 }

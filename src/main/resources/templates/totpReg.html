@@ -22,6 +22,8 @@
         <div class="Box_main">
             <img th:src="${dataUri}"/>
             <span class="label">Scan QR-Koden med din valgte autentiseringsapp</span>
+            <span class="label">Eller skriv inn manuelt: </span>
+            <span class="label" th:text="${manualEntry}"></span>
             <form th:action="@{/stepTwo}" method="post">
                 <div class="fm-Fields">
                     <div class="fm-Field">
@@ -33,7 +35,7 @@
                     <button id="next" class="btn btn-Action" name="next" type="submit">
                         <span>Neste</span>
                     </button>
-                    <button id="cancel" class="btn btn-Normal" name="cancel" type="submit">
+                    <button id="cancel" class="btn btn-Normal" name="cancel" type="submit" value="cancel">
                         <span>Avbryt</span>
                     </button>
                 </div>
