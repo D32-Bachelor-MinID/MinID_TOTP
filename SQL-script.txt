@@ -1,0 +1,152 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               11.0.1-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.3.0.6589
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Dumping database structure for minid
+CREATE DATABASE IF NOT EXISTS `minid` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
+USE `minid`;
+
+-- Dumping structure for table minid.crypto
+CREATE TABLE IF NOT EXISTS `crypto` (
+  `uuid` varchar(50) NOT NULL,
+  `secret` varchar(255) DEFAULT NULL,
+  `previnput` varchar(6) DEFAULT NULL,
+  PRIMARY KEY (`uuid`) USING BTREE,
+  KEY `id_FK` (`uuid`) USING BTREE,
+  CONSTRAINT `FK_crypto_user` FOREIGN KEY (`uuid`) REFERENCES `user` (`uuid`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Dumping data for table minid.crypto: ~2 rows (approximately)
+INSERT INTO `crypto` (`uuid`, `secret`, `previnput`) VALUES
+	('29a6cc22-080a-4965-ac30-7a96f3daf30e', 'HMZARLOXOJHZ2FVAQMKDMO6L3O627AFR', '112233'),
+	('584f0898-99fe-4cb7-9fb0-b98de0a259e9', 'Q6T2ALGUCMZJESW4SJTHFCPFR4DB2MH4', '844266');
+
+-- Dumping structure for table minid.kodeliste
+CREATE TABLE IF NOT EXISTS `kodeliste` (
+  `kode` varchar(50) NOT NULL,
+  `navn` varchar(200) NOT NULL,
+  `kodeverk` varchar(50) NOT NULL,
+  PRIMARY KEY (`kode`,`kodeverk`),
+  KEY `kodeverk_fk` (`kodeverk`),
+  CONSTRAINT `kodeverk_fk` FOREIGN KEY (`kodeverk`) REFERENCES `kodeverk` (`navn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Dumping data for table minid.kodeliste: ~18 rows (approximately)
+INSERT INTO `kodeliste` (`kode`, `navn`, `kodeverk`) VALUES
+	('AKTIVERINGSBREV', 'Registered with one time code recieved by letter in the mail', 'SOURCE'),
+	('APP', 'MinID app downloaded and registered by user', 'MFA_METHOD'),
+	('CLOSED', 'A user that has been closed by customer support. The user can only be opened again by customer support.', 'USER_STATE'),
+	('HIGH', 'Also known as "level 4". Documentation: https://eid.difi.no/nb/sikkerhet-og-informasjonskapsler/ulike-sikkerhetsniva', 'SECURITY_LEVEL'),
+	('LOCKED', 'A user that has been in a quarantine and has attempted to log in again.', 'USER_STATE'),
+	('LOW', 'Currently not in use by MinID.', 'SECURITY_LEVEL'),
+	('MOTF', 'MinID-on-the-fly - ID controlled at one of Skatteetatens offices, and registered by link from sms', 'SOURCE'),
+	('MOTF_PASSPORT', 'MinID-on-the-fly Passport - ID verified by passport reader, and registered the minid-passport service', 'SOURCE'),
+	('NEW_USER', 'A new user to the system', 'USER_STATE'),
+	('NORMAL', 'A normal user', 'USER_STATE'),
+	('OTC', 'A one time code send by sms', 'MFA_METHOD'),
+	('PIN', 'Pin codes from a pin letter', 'MFA_METHOD'),
+	('PINBREV', 'Registered by letter with pinkodes recived by mail', 'SOURCE'),
+	('QUARANTINED', 'A user that is quarantined for entering wrong credentials too many times', 'USER_STATE'),
+	('QUARANTINED_NEW_USER', 'A new user that is quarantined for entering wrong credentials too many times', 'USER_STATE'),
+	('SUBSTANTIAL', 'Also known as "level 3". Documentation: https://eid.difi.no/nb/sikkerhet-og-informasjonskapsler/ulike-sikkerhetsniva', 'SECURITY_LEVEL'),
+	('TEMP_PWD', 'A user in the process of doing the forgotten password flow', 'USER_STATE'),
+	('TOTP', 'Bachelor', 'MFA_METHOD');
+
+-- Dumping structure for table minid.kodeverk
+CREATE TABLE IF NOT EXISTS `kodeverk` (
+  `navn` varchar(50) NOT NULL,
+  `beskrivelse` varchar(200) NOT NULL,
+  PRIMARY KEY (`navn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Dumping data for table minid.kodeverk: ~4 rows (approximately)
+INSERT INTO `kodeverk` (`navn`, `beskrivelse`) VALUES
+	('MFA_METHOD', 'MFA method in use by user'),
+	('SECURITY_LEVEL', 'Security level of the user'),
+	('SOURCE', 'Source of the users registry'),
+	('USER_STATE', 'User state');
+
+-- Dumping structure for table minid.spring_session
+CREATE TABLE IF NOT EXISTS `spring_session` (
+  `PRIMARY_ID` char(36) NOT NULL,
+  `SESSION_ID` char(36) NOT NULL,
+  `CREATION_TIME` bigint(20) NOT NULL,
+  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
+  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
+  `EXPIRY_TIME` bigint(20) NOT NULL,
+  `PRINCIPAL_NAME` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`PRIMARY_ID`),
+  UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
+  KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
+  KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table minid.spring_session: ~0 rows (approximately)
+
+-- Dumping structure for table minid.spring_session_attributes
+CREATE TABLE IF NOT EXISTS `spring_session_attributes` (
+  `SESSION_PRIMARY_ID` char(36) NOT NULL,
+  `ATTRIBUTE_NAME` varchar(200) NOT NULL,
+  `ATTRIBUTE_BYTES` blob NOT NULL,
+  PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`),
+  CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table minid.spring_session_attributes: ~0 rows (approximately)
+
+-- Dumping structure for table minid.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `uuid` varchar(36) NOT NULL,
+  `pid` varchar(255) NOT NULL,
+  `source` varchar(50) NOT NULL,
+  `kodeverk_source` varchar(50) GENERATED ALWAYS AS ('SOURCE') VIRTUAL,
+  `user_state` varchar(50) NOT NULL,
+  `kodeverk_user_state` varchar(50) GENERATED ALWAYS AS ('USER_STATE') VIRTUAL,
+  `security_level` varchar(50) NOT NULL,
+  `kodeverk_security_level` varchar(50) GENERATED ALWAYS AS ('SECURITY_LEVEL') VIRTUAL,
+  `mfa_method` varchar(50) NOT NULL,
+  `kodeverk_mfa_method` varchar(50) GENERATED ALWAYS AS ('MFA_METHOD') VIRTUAL,
+  `password` varchar(255) NOT NULL,
+  `password_error_counter` tinyint(1) NOT NULL DEFAULT 0,
+  `mfa_error_counter` tinyint(1) NOT NULL DEFAULT 0,
+  `quarantine_expiry_ms` bigint(15) NOT NULL DEFAULT 0,
+  `profile_created_ms` bigint(15) NOT NULL DEFAULT 0,
+  `profile_updated_ms` bigint(15) NOT NULL DEFAULT 0,
+  `last_login_ms` bigint(15) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `pid` (`pid`),
+  KEY `userstate_fk` (`user_state`,`kodeverk_user_state`),
+  KEY `mfamethod_fk` (`mfa_method`,`kodeverk_mfa_method`),
+  KEY `securitylevel_fk` (`security_level`,`kodeverk_security_level`),
+  KEY `source_fk` (`source`,`kodeverk_source`),
+  KEY `user_pid_index` (`pid`),
+  CONSTRAINT `mfamethod_fk` FOREIGN KEY (`mfa_method`, `kodeverk_mfa_method`) REFERENCES `kodeliste` (`kode`, `kodeverk`),
+  CONSTRAINT `securitylevel_fk` FOREIGN KEY (`security_level`, `kodeverk_security_level`) REFERENCES `kodeliste` (`kode`, `kodeverk`),
+  CONSTRAINT `source_fk` FOREIGN KEY (`source`, `kodeverk_source`) REFERENCES `kodeliste` (`kode`, `kodeverk`),
+  CONSTRAINT `userstate_fk` FOREIGN KEY (`user_state`, `kodeverk_user_state`) REFERENCES `kodeliste` (`kode`, `kodeverk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Dumping data for table minid.user: ~3 rows (approximately)
+INSERT INTO `user` (`uuid`, `pid`, `source`, `user_state`, `security_level`, `mfa_method`, `password`, `password_error_counter`, `mfa_error_counter`, `quarantine_expiry_ms`, `profile_created_ms`, `profile_updated_ms`, `last_login_ms`) VALUES
+	('29a6cc22-080a-4965-ac30-7a96f3daf30e', '12312312333', 'AKTIVERINGSBREV', 'NEW_USER', 'LOW', 'TOTP', '$2a$12$rpTJFm1ASMAtCGFCJ6eI4uQHboxBraylE8WMVyA4S33.y16yLCXNu', 0, 0, 0, 0, 0, 0),
+	('584f0898-99fe-4cb7-9fb0-b98de0a259e9', '11223312345', 'AKTIVERINGSBREV', 'NEW_USER', 'LOW', 'TOTP', '$2a$12$agTjm8QqTa2ABWWluvnrb.JxKjqUSxh.ub02JtuezjnJT5J3.aUIa', 0, 0, 0, 0, 0, 0),
+	('b4fd25eb-b465-4470-b31a-23e0266e8269', '09123122938', 'AKTIVERINGSBREV', 'NEW_USER', 'LOW', 'OTC', '$2a$12$zSPoXa2cSOWRahMTrP.7Y.wT9MTmgtTsYV6ynAVeSCtGdeYBYoUAW', 0, 0, 0, 0, 0, 0);
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
