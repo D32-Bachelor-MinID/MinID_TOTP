@@ -1,6 +1,6 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.totp.Totp;
+import d32.minid.mfa_totp_minid.model.totp.Totp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
