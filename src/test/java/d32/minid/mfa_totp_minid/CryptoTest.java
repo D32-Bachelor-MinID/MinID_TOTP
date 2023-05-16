@@ -1,10 +1,10 @@
 package d32.minid.mfa_totp_minid;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.Crypto;
-import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.CryptoRepository;
-import d32.minid.mfa_totp_minid.idportenbackend.DAO.repository.UserRepository;
-import d32.minid.mfa_totp_minid.idportenbackend.minidprofil.User;
+import d32.minid.mfa_totp_minid.model.DAO.Crypto;
+import d32.minid.mfa_totp_minid.model.DAO.repository.CryptoRepository;
+import d32.minid.mfa_totp_minid.model.DAO.repository.UserRepository;
+import d32.minid.mfa_totp_minid.model.DAO.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

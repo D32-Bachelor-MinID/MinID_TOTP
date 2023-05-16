@@ -1,7 +1,7 @@
 package d32.minid.mfa_totp_minid;
 
-import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.qrcode.QrData;
-import d32.minid.mfa_totp_minid.idportenbackend.totpauthentication.qrcode.QrGenerator;
+import d32.minid.mfa_totp_minid.model.qr.QrData;
+import d32.minid.mfa_totp_minid.model.qr.QrGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
