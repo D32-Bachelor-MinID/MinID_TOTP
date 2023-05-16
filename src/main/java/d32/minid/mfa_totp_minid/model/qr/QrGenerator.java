@@ -35,12 +35,26 @@ public class QrGenerator {
         this.qrImageSize = qrImageSize;
     }
 
+    /**
+     * This method instantiates a QrData object based on user from parameter
+     * and standard TOTP configurations.
+     *
+     * @param user
+     * @return new QrData object
+     */
     public QrData qrSetup(User user){
         DefaultKeyGenerator keyGenerator = new DefaultKeyGenerator();
         String secret = keyGenerator.generate();
         return new QrData("totp", user.getPid(), secret, "MinID", "SHA1", 6, 30);
     }
 
+    /**
+     * This method generates a byte array for the PNG representation
+     * of QrData given from parameters.
+     *
+     * @param data
+     * @return a byte array for the PNG
+     */
     public byte[] generate(QrData data) {
         try {
             BitMatrix bitMatrix = writer.encode(data.getUri(), BarcodeFormat.QR_CODE, qrImageSize, qrImageSize);
@@ -52,6 +66,15 @@ public class QrGenerator {
         }
     }
 
+    /**
+     * This method generates a Uri for the qr code image
+     * from given set of parameters.
+     * The Uri can be inserted directly with Thymeleaf.
+     *
+     * @param qrData
+     * @param type
+     * @return Qr code image in form of a Uri
+     */
     public String getUriForImage(QrData qrData, String type){
         return String.format("data:%s;base64,%s", type, new String(base64.encode(generate(qrData))));
     }
