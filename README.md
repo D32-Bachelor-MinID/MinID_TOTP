@@ -48,7 +48,9 @@ I prosjektet ligger en pom.xml fil som er fylt inn med flere avhengigheter prosj
 
 ## Generer en bruker
 
-En av testene i prosjektet; ``TestUserRepository`` genererer en bruker i databasen om den ikke eksisterer der fra før (Figur 2). Denne brukerkontoen vil kunne la seg nyttes til innlogging når programmet kjører, så det anbefales å kjøre gjennom testsettet før resten av programmet. Kjøring av testsettet vil også validere at maven har håndtert avhengigheter, og validere databasetilkobling.
+En av testene i prosjektet; ``TestUserRepository`` genererer en bruker i databasen om den ikke eksisterer der fra før (Figur 2).  
+Denne brukerkontoen vil kunne la seg nyttes til innlogging når programmet kjører, så det anbefales å kjøre gjennom testsettet før resten av programmet.  
+Kjøring av testsettet vil også validere at maven har håndtert avhengigheter, og validere databasetilkobling.
 
 
 ![Brukergrensesnitt](docs/fig13.png)
@@ -56,8 +58,9 @@ Figur 2 Brukergenerering via testklasse
 
 ## Kjøring
 
-Programmet kjøres ved å navigere til MfaTotpMinIdApplication.java og trykke pil markert (Figur 3). Terminalen vil da åpnes og vil indikere at programmet kjøres. Bruker må deretter åpne en nettleser og navigere til localhost:8080.
-![Kjøring av programmet](docs/fig14.png)
+Programmet kjøres ved å navigere til MfaTotpMinIdApplication.java og trykke pil markert (Figur 3).  
+Terminalen vil da åpnes og vil indikere at programmet kjøres. Bruker må deretter åpne en nettleser og navigere til localhost:8080.
+![Kjøring av programmet](docs/fig14.png)  
 Figur 3 Kjøring av programmet 
 
  
