@@ -27,9 +27,9 @@ Figur 1  Bilde av hvor script limes inn og kjøres
 
 Med en database som er oppe og går, kan det nå kobles til i application.properties. Denne filen ligger i ``src/main/resources``
 
->spring.datasource.url=jdbc:mariadb://``ip-adresse``/``database navn``
+>spring.datasource.url=jdbc:mariadb://``ip-adresse``/``database navn``  
 >spring.datasource.username=``database brukernavn``  
->spring.datasource.password=``database passord``
+>spring.datasource.password=``database passord``  
 
 >spring.security.oauth2.client.registration.idporten.client-id=``client id``  
 >spring.security.oauth2.client.registration.idporten.client-secret=``client secret``  
